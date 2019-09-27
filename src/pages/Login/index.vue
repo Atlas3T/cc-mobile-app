@@ -4,14 +4,18 @@
       <div class="col-9 bg-primary form-container flex flex-center">
         <div>
           <q-input
-            v-model="name"
+            v-model="username"
+            color="secondary"
+            bg-color="white"
             outlined
             label="email"
             lazy-rules
             :rules="[ val => val && val.length > 0 || 'Please type something']"
           />
           <q-input
-            v-model="name"
+            v-model="password"
+            color="secondary"
+            bg-color="white"
             outlined
             label="password"
             lazy-rules
@@ -45,6 +49,7 @@
 export default {
   name: 'Login',
   username: '',
+  password: '',
 };
 </script>
 <style>
