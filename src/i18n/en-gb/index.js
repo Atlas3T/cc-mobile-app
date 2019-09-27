@@ -4,4 +4,5 @@
 export default {
   tapToScan: 'Tap to Scan',
   success: 'Action was successful',
+  recyclingHistory: 'Recycling History',
 };

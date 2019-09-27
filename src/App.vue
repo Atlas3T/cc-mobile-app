@@ -11,7 +11,5 @@ export default {
 };
 </script>
 <style>
-#q-app {
-  font-family: 'Helvetica Nue';
-}
+
 </style>

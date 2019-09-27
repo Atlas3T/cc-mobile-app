@@ -12,7 +12,7 @@
         class="text-grey"
       >
         <q-tab
-          name="home"
+          name=""
           icon="house"
           label="Home"
         />
@@ -47,6 +47,11 @@ export default {
     return {
       tab: 'recycle',
     };
+  },
+  watch: {
+    tab(val) {
+      this.$router.push({ path: `/${val}` });
+    },
   },
 };
 </script>
