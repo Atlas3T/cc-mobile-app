@@ -15,3 +15,7 @@
      font-family: "Heebo-Light";
      color: #284242;
  }
+
+.bg-overlay {
+    background-color: #28424286!important;
+}

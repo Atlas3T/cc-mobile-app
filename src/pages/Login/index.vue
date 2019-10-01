@@ -1,7 +1,7 @@
 <template>
-  <q-page class="flex bg-white justify-center">
-    <div class="column items-center justify-between bg-primary">
-      <div class="col-9 bg-primary form-container flex flex-center">
+  <q-page class="flex justify-center">
+    <div class="column items-center justify-between bg-white">
+      <div class="form-container flex flex-center">
         <div>
           <!-- <q-input
             v-model="username"
@@ -34,15 +34,15 @@
           text-color="white"
           size="xl"
           :label="$t('sign up')"
-          class="login-button signup"
+          class="login-button"
         />
         <q-btn
           unelevated
-          color="primary"
+          color="#3f3e3e"
           text-color="white"
           size="xl"
           :label="$t('log in')"
-          class="login-button"
+          class="login-button bottom-button"
         />
       </div>
     </div>
@@ -59,13 +59,20 @@ export default {
 <style>
 .login-button {
     width: 100vw;
-    border-top: 7px solid white;
     text-transform: lowercase;
 }
-.signup {
+.bottom-button {
+  background-color: #3f3e3e;
+  border-top: 4px solid white;
 }
 .form-container {
     padding: 0 5vw;
+    background:linear-gradient(
+      #284242bf,
+      #284242bf
+    ), url('../../assets/login-bg.jpg');
+    background-size: cover;
+    height: 81%;
 }
 .form-container .q-input {
     margin-bottom: 5px;

@@ -8,35 +8,36 @@
       </div>
     </q-header>
     <q-footer
-      bordered
-      class="bg-white text-primary"
+      flat
+      class="bg-grey-5 text-white"
     >
       <q-tabs
         v-model="tab"
         no-caps
-        active-color="primary"
+        active-color="light-green-13"
         indicator-color="transparent"
-        class="text-grey"
+        class="text-white"
       >
         <q-tab
           name=""
           icon="house"
-          label="Home"
-        />
-        <q-tab
-          name="recycle"
-          icon="fas fa-recycle"
-          label="Recycle"
         />
         <q-tab
           name="rewards"
           icon="fas fa-money-bill-wave"
-          label="Rewards"
+        />
+        <q-tab
+          name="recycle"
+          icon="fas fa-recycle"
+          class="scan-button"
+        />
+        <q-tab
+          name="location"
+          icon="where_to_vote"
         />
         <q-tab
           name="settings"
           icon="settings"
-          label="Settings"
         />
       </q-tabs>
     </q-footer>
@@ -80,3 +81,10 @@ export default {
   },
 };
 </script>
+<style>
+.scan-button {
+  background-color: green;
+  border: 3px solid white;
+  border-radius: 50px;
+}
+</style>
