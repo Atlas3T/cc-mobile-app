@@ -94,14 +94,49 @@
             />
           </q-item-section>
         </q-item>
+        <q-item
+          v-ripple
+          clickable
+          @click="signOut"
+        >
+          <q-item-section>
+            Log Out
+          </q-item-section>
+          <q-item-section avatar>
+            <q-icon
+              color="grey"
+              name="keyboard_arrow_right"
+            />
+          </q-item-section>
+        </q-item>
       </q-list>
     </div>
   </q-page>
 </template>
 
 <script>
+import Mgr from '../../boot/security-oidc';
+
 export default {
   name: 'Location',
+
+  methods: {
+    async signOut() {
+      // this.$oidc.signoutRedirect();
+      // console.log(this.$oidc);
+
+      const mgr = new Mgr();
+      const user = await mgr.getToken();
+      console.log(user);
+      const test = await fetch('https://cryptocycle.online/api/account', {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${user.access_token}`,
+        },
+      });
+      console.log(test);
+    },
+  },
 };
 </script>
 <style>

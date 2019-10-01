@@ -8,6 +8,14 @@ const routes = [
     ],
   },
   {
+    path: '/',
+    component: () => import('layouts/unauthed.vue'),
+    children: [
+      { path: '/callback', component: () => import('pages/oidc/callback') },
+      { path: '/accessdenied', component: () => import('pages/oidc/accessDenied') },
+    ],
+  },
+  {
     path: '/recycle',
     component: () => import('layouts/MyLayout.vue'),
     children: [

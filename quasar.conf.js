@@ -9,6 +9,8 @@ module.exports = function (ctx) {
     boot: [
       'i18n',
       'axios',
+      'router-oidc',
+      'oidc',
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

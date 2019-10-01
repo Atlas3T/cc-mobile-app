@@ -1,9 +1,9 @@
 <template>
   <q-page class="flex bg-white justify-center">
-    <div class="column items-center justify-between">
+    <div class="column items-center justify-between bg-primary">
       <div class="col-9 bg-primary form-container flex flex-center">
         <div>
-          <q-input
+          <!-- <q-input
             v-model="username"
             color="secondary"
             bg-color="white"
@@ -20,25 +20,29 @@
             label="password"
             lazy-rules
             :rules="[ val => val && val.length > 0 || 'Please type something']"
-          />
+          /> -->
+          <p class="recycle-fact">
+            DID YOU KNOW... just one recycled plastic bottle can save enough
+            energy to power a bulb for 3 hours
+          </p>
         </div>
       </div>
-      <div class="col-auto justify-end">
+      <div>
         <q-btn
           unelevated
-          color="primary"
-          size="xl"
-          :label="$t('log in')"
-          class="login-button"
-        />
-      </div>
-      <div class="col-auto justify-end">
-        <q-btn
-          outline
-          color="primary"
+          color="secondary"
+          text-color="white"
           size="xl"
           :label="$t('sign up')"
           class="login-button signup"
+        />
+        <q-btn
+          unelevated
+          color="primary"
+          text-color="white"
+          size="xl"
+          :label="$t('log in')"
+          class="login-button"
         />
       </div>
     </div>
@@ -54,10 +58,11 @@ export default {
 </script>
 <style>
 .login-button {
-    width: 90vw;
+    width: 100vw;
+    border-top: 7px solid white;
+    text-transform: lowercase;
 }
 .signup {
-    margin-bottom: 2rem;;
 }
 .form-container {
     padding: 0 5vw;
@@ -66,5 +71,10 @@ export default {
     margin-bottom: 5px;
     width: 90vw;
     color: white;
+}
+.recycle-fact {
+  color: white;
+  font-size: x-large;
+  text-align: center;
 }
 </style>
