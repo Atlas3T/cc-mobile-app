@@ -9,14 +9,14 @@
     </div>
     <div class="col info-section q-pa-md">
       <q-card class="balance-card">
-        <q-card-section>
+        <q-card-section class="q-pa-sm">
           <div class="row">
             <div class="col text-center">
               <div class="amount text-h4 text-accent">
                 150
               </div>
               points balance
-              <div class="actions q-pa-md bg-secondary text-white q-mx-sm q-mt-sm">
+              <div class="actions q-pa-sm bg-secondary text-white q-mr-xs q-mt-sm">
                 spend points
               </div>
             </div>
@@ -32,7 +32,7 @@
               </div>
               cash balance
               <div
-                class="actions q-pa-md bg-secondary text-white q-mx-sm q-mt-sm"
+                class="actions q-pa-sm bg-secondary text-white q-ml-xs q-mt-sm"
               >
                 withdraw your balance
               </div>
@@ -40,6 +40,7 @@
           </div>
         </q-card-section>
       </q-card>
+      .
     </div>
   </q-page>
 </template>
