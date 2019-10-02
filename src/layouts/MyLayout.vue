@@ -1,17 +1,17 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header
-      class="bg-accent text-white flex flex-center"
+      class="bg-accent text-white text-weight-bold flex flex-center"
     >
       <div class="top-bar row justify-between items-center">
         <div class="col reward-balance text-secondary">
           150 points
         </div>
-        <div class="col-auto page-title text-center">
-          home
+        <div class="col-auto page-title text-center text-lowercase">
+          {{ $router.currentRoute.name }}
         </div>
         <div class="col reward-balance text-secondary text-right">
-          £1.20
+          £5.60
         </div>
       </div>
     </q-header>
@@ -42,7 +42,7 @@
         class="text-white"
       >
         <q-tab
-          name=""
+          name="home"
           icon="house"
         />
         <q-tab
@@ -85,7 +85,9 @@ export default {
   },
   watch: {
     tab(val) {
-      this.$router.push({ path: `/${val}` });
+      if (val !== 'placeholder') {
+        this.$router.push({ path: `/${val}` });
+      }
     },
   },
   mounted() {

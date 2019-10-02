@@ -19,7 +19,7 @@ const routes = [
     path: '/home',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Home') },
+      { name: 'Home', path: '', component: () => import('pages/Home') },
     ],
   },
   {
@@ -40,7 +40,7 @@ const routes = [
     path: '/settings',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Settings') },
+      { name: 'Settings', path: '', component: () => import('pages/Settings') },
     ],
   },
   {

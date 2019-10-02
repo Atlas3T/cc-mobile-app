@@ -19,3 +19,11 @@
 .bg-overlay {
     background-color: #28424286!important;
 }
+
+.grey-gradient {
+    background: linear-gradient(
+        #cccccc,
+        #ffffff
+    );
+    background-size: cover;
+}

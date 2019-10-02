@@ -1,26 +1,14 @@
 <template>
-  <q-page class="bg-white text-primary">
+  <q-page class="text-accent text-weight-bold grey-gradient">
     <div
       class="q-pa-md settings-menu"
     >
-      <h5
-        class="text-bold text-primary"
-        style="padding: 0 16px;"
-      >
-        Settings
-      </h5>
-      <q-list class="text-grey">
+      <q-list class="text-center">
         <q-item
           v-ripple
           clickable
         >
           <q-item-section>Account</q-item-section>
-          <q-item-section avatar>
-            <q-icon
-              color="grey"
-              name="keyboard_arrow_right"
-            />
-          </q-item-section>
         </q-item>
 
         <q-item
@@ -28,28 +16,7 @@
           clickable
         >
           <q-item-section>
-            <q-item-label>Rewards</q-item-label>
-          </q-item-section>
-          <q-item-section avatar>
-            <q-icon
-              color="grey"
-              name="keyboard_arrow_right"
-            />
-          </q-item-section>
-        </q-item>
-
-        <q-item
-          v-ripple
-          clickable
-        >
-          <q-item-section>
-            Personal details
-          </q-item-section>
-          <q-item-section avatar>
-            <q-icon
-              color="grey"
-              name="keyboard_arrow_right"
-            />
+            <q-item-label>your Rewards</q-item-label>
           </q-item-section>
         </q-item>
         <q-item
@@ -57,12 +24,6 @@
           clickable
         >
           <q-item-section>About</q-item-section>
-          <q-item-section avatar>
-            <q-icon
-              color="grey"
-              name="keyboard_arrow_right"
-            />
-          </q-item-section>
         </q-item>
 
         <q-item
@@ -71,12 +32,6 @@
         >
           <q-item-section>
             <q-item-label>Terms & Conditons</q-item-label>
-          </q-item-section>
-          <q-item-section avatar>
-            <q-icon
-              color="grey"
-              name="keyboard_arrow_right"
-            />
           </q-item-section>
         </q-item>
 
@@ -87,12 +42,6 @@
           <q-item-section>
             Privacy Policy
           </q-item-section>
-          <q-item-section avatar>
-            <q-icon
-              color="grey"
-              name="keyboard_arrow_right"
-            />
-          </q-item-section>
         </q-item>
         <q-item
           v-ripple
@@ -102,11 +51,13 @@
           <q-item-section>
             Log Out
           </q-item-section>
-          <q-item-section avatar>
-            <q-icon
-              color="grey"
-              name="keyboard_arrow_right"
-            />
+        </q-item>
+        <q-item
+          v-ripple
+          clickable
+        >
+          <q-item-section>
+            help
           </q-item-section>
         </q-item>
       </q-list>
@@ -118,7 +69,7 @@
 import Mgr from '../../boot/security-oidc';
 
 export default {
-  name: 'Location',
+  name: 'Settings',
 
   methods: {
     async signOut() {
@@ -141,10 +92,19 @@ export default {
 </script>
 <style>
 .settings-menu .q-item__section {
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .settings-menu .q-item {
-    padding: 10px 16px;
+    padding: 5px 16px;
+    margin-bottom: 1em;
+    border-radius: 20px;
+    background-color: white;
+    text-transform: lowercase;
+}
+</style>
+<style lang="scss">
+.settings-menu .q-item {
+    border: 3px solid $grey-5;
 }
 </style>
