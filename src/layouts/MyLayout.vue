@@ -1,20 +1,43 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header
-      class="bg-primary text-white flex flex-center"
+      class="bg-accent text-white flex flex-center"
     >
-      <div class="page-title">
-        home
+      <div class="top-bar row justify-between items-center">
+        <div class="col reward-balance text-secondary">
+          150 points
+        </div>
+        <div class="col-auto page-title text-center">
+          home
+        </div>
+        <div class="col reward-balance text-secondary text-right">
+          £1.20
+        </div>
       </div>
     </q-header>
     <q-footer
       flat
       class="bg-grey-5 text-white"
     >
+      <div
+        class="top-bar row justify-center"
+        style=""
+      >
+        <q-btn
+          size="25px"
+          round
+          unelevated
+          color="secondary"
+          class="scan-button absolute-center"
+        >
+          <q-icon name="crop_free" />
+        </q-btn>
+      </div>
+
       <q-tabs
         v-model="tab"
         no-caps
-        active-color="light-green-13"
+        active-color="white"
         indicator-color="transparent"
         class="text-white"
       >
@@ -27,9 +50,8 @@
           icon="fas fa-money-bill-wave"
         />
         <q-tab
-          name="recycle"
-          icon="fas fa-recycle"
-          class="scan-button"
+          name="placeholder"
+          class="placeholder"
         />
         <q-tab
           name="location"
@@ -82,9 +104,18 @@ export default {
 };
 </script>
 <style>
+.top-bar {
+  width: 100%;
+}
+.page-title {
+  font-size: 1.5em;
+  padding: 5px 0;
+}
+.reward-balance {
+  padding: 5px 10px;
+}
 .scan-button {
-  background-color: green;
   border: 3px solid white;
-  border-radius: 50px;
+  margin-top: -20px;
 }
 </style>

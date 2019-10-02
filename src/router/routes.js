@@ -16,6 +16,13 @@ const routes = [
     ],
   },
   {
+    path: '/home',
+    component: () => import('layouts/MyLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Home') },
+    ],
+  },
+  {
     path: '/recycle',
     component: () => import('layouts/MyLayout.vue'),
     children: [
