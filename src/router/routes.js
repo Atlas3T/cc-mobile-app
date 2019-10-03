@@ -23,6 +23,13 @@ const routes = [
     ],
   },
   {
+    path: '/rewards',
+    component: () => import('layouts/MyLayout.vue'),
+    children: [
+      { name: 'market place', path: '', component: () => import('pages/Rewards') },
+    ],
+  },
+  {
     path: '/recycle',
     component: () => import('layouts/MyLayout.vue'),
     children: [

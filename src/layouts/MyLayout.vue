@@ -43,11 +43,11 @@
       >
         <q-tab
           name="home"
-          icon="house"
+          icon="img:statics/nav-icons/home.svg"
         />
         <q-tab
           name="rewards"
-          icon="fas fa-money-bill-wave"
+          icon="img:statics/nav-icons/rewards.svg"
         />
         <q-tab
           name="placeholder"
@@ -55,11 +55,11 @@
         />
         <q-tab
           name="location"
-          icon="where_to_vote"
+          icon="img:statics/nav-icons/map.svg"
         />
         <q-tab
           name="settings"
-          icon="settings"
+          icon="img:statics/nav-icons/settings.svg"
         />
       </q-tabs>
     </q-footer>
