@@ -88,11 +88,11 @@ export default class SecurityService {
   }
 
   getSignedIn() {
-    const self = this;
+    // const self = this;
     return new Promise((resolve, reject) => {
       mgr.getUser().then((user) => {
         if (user == null) {
-          self.signIn();
+          // self.signIn();
           return resolve(false);
         }
         return resolve(true);

@@ -17,7 +17,7 @@
               style="right:2px; top:5px;"
             /> -->
           <img
-            src="../../assets/mocks/rewards/pizza.jpg"
+            :src="info.image"
             class="image"
           >
           <q-card-section style="position: relative">
@@ -25,14 +25,15 @@
               <q-avatar
                 color="red"
                 text-color="white"
-                size="80px"
+                size="100px"
               >
-                <div class="text-body1 text-center">
-                  logo
-                </div>
+                <img
+                  :src="info.logo"
+                  alt=""
+                >
               </q-avatar>
             </div>
-            <div class="q-mt-lg q-pt-sm text-h5 text-accent text-center text-weight-bold">
+            <div class="q-mt-lg q-pt-md text-h5 text-accent text-center text-weight-bold">
               {{ info.title }}
             </div>
             <div class="text-body1 text-accent text-center text-weight-bold">
@@ -42,7 +43,7 @@
               VIEW WEBSITE
             </div>
             <div class="text-h5 text-white text-center text-weight-bold">
-              {{ info.points }} points
+              {{ info.points }}
             </div>
           </q-card-section>
         </q-card>

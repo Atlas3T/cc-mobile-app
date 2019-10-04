@@ -39,17 +39,22 @@
         no-caps
         active-color="white"
         indicator-color="transparent"
-        class="text-white"
+        class=" navbar text-white"
       >
         <q-tab
           name="home"
           icon="img:statics/nav-icons/home.svg"
         />
+        <q-separator
+          vertical
+        />
+
         <q-tab
           name="rewards"
           icon="img:statics/nav-icons/rewards.svg"
         />
         <q-tab
+          disable
           name="placeholder"
           class="placeholder"
         />
@@ -57,13 +62,16 @@
           name="location"
           icon="img:statics/nav-icons/map.svg"
         />
+        <q-separator
+          vertical
+        />
         <q-tab
           name="settings"
           icon="img:statics/nav-icons/settings.svg"
         />
       </q-tabs>
     </q-footer>
-    <q-page-container v-if="signedIn">
+    <q-page-container>
       <router-view />
     </q-page-container>
   </q-layout>
@@ -71,7 +79,6 @@
 
 <script>
 import { openURL } from 'quasar';
-import Mgr from '../boot/security-oidc.js';
 
 export default {
   name: 'MyLayout',
@@ -79,7 +86,6 @@ export default {
   data() {
     return {
       tab: 'recycle',
-      mgr: new Mgr(),
       signedIn: false,
     };
   },
@@ -91,9 +97,9 @@ export default {
     },
   },
   mounted() {
-    this.mgr.getSignedIn().then(
-      (sucess) => {
-        this.signedIn = sucess;
+    this.$mgr.getSignedIn().then(
+      (success) => {
+        this.signedIn = success;
       },
       (err) => {
         console.log(err);
@@ -105,7 +111,7 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss">
 .top-bar {
   width: 100%;
 }
@@ -119,5 +125,19 @@ export default {
 .scan-button {
   border: 3px solid white;
   margin-top: -20px;
+  z-index: 9999;
+}
+.navbar .q-separator--vertical {
+  background-color: $grey-4;
+  width: 3px;
+  height: 26px;
+  min-height: 0%;
+  margin: 11px 0;
+}
+
+.navbar .q-tab__icon {
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
 }
 </style>

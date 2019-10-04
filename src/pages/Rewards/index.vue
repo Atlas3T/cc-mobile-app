@@ -15,9 +15,10 @@
                   text-color="white"
                   size="80px"
                 >
-                  <div class="text-body1 text-center">
-                    logo
-                  </div>
+                  <img
+                    src="../../assets/brand-logos/mamma-mia.png"
+                    alt=""
+                  >
                 </q-avatar>
               </div>
               <div class="q-mt-lg q-pt-sm text-body1 text-accent text-center text-weight-bold">
@@ -40,9 +41,10 @@
                   text-color="white"
                   size="80px"
                 >
-                  <div class="text-body1 text-center">
-                    logo
-                  </div>
+                  <img
+                    src="../../assets/brand-logos/jungle-park.png"
+                    alt=""
+                  >
                 </q-avatar>
               </div>
               <div class="q-mt-lg q-pt-sm text-body1 text-accent text-center text-weight-bold">
@@ -66,9 +68,10 @@
                   text-color="white"
                   size="80px"
                 >
-                  <div class="text-body1 text-center">
-                    logo
-                  </div>
+                  <img
+                    src="../../assets/brand-logos/zesti.png"
+                    alt=""
+                  >
                 </q-avatar>
               </div>
               <div class="q-mt-lg q-pt-sm text-body1 text-accent text-center text-weight-bold">
@@ -91,9 +94,10 @@
                   text-color="white"
                   size="80px"
                 >
-                  <div class="text-body1 text-center">
-                    logo
-                  </div>
+                  <img
+                    src="../../assets/brand-logos/kooku.png"
+                    alt=""
+                  >
                 </q-avatar>
               </div>
               <div class="q-mt-lg q-pt-sm text-body1 text-accent text-center text-weight-bold">
@@ -121,7 +125,8 @@ export default {
     return {
       popup: {
         title: 'free doughballs',
-        description: 'when you buy any large pizza at mama mia',
+        logo: 'img/mamma-mia.png',
+        description: 'when you buy any large pizza at mamma mia',
         points: 250,
         code: 'K001-KOA6-WA10-0JW1',
         open: false,

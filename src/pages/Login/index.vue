@@ -21,6 +21,11 @@
             lazy-rules
             :rules="[ val => val && val.length > 0 || 'Please type something']"
           /> -->
+          <img
+            alt="Cryptocyle logo"
+            src="~assets/logo.png"
+            class="logo q-pr-sm q-mb-xl"
+          >
           <p class="recycle-fact">
             DID YOU KNOW... just one recycled plastic bottle can save enough
             energy to power a bulb for 3 hours
@@ -43,6 +48,7 @@
           size="xl"
           :label="$t('log in')"
           class="login-button bottom-button"
+          @click="login"
         />
       </div>
     </div>
@@ -50,13 +56,23 @@
 </template>
 
 <script>
+import { openURL } from 'quasar';
+
 export default {
   name: 'Login',
-  username: '',
-  password: '',
+
+  methods: {
+    openURL,
+    login() {
+      this.$mgr.signIn();
+    },
+  },
 };
 </script>
 <style>
+.logo {
+  width: 90vw;
+}
 .login-button {
     width: 100vw;
     text-transform: lowercase;

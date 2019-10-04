@@ -66,8 +66,6 @@
 </template>
 
 <script>
-import Mgr from '../../boot/security-oidc';
-
 export default {
   name: 'Settings',
 
@@ -76,16 +74,15 @@ export default {
       // this.$oidc.signoutRedirect();
       // console.log(this.$oidc);
 
-      const mgr = new Mgr();
-      const user = await mgr.getToken();
-      console.log(user);
-      const test = await fetch('https://cryptocycle.online/api/account', {
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${user.access_token}`,
-        },
-      });
-      console.log(test);
+      await this.$mgr.signOut();
+
+      // const test = await fetch('https://cryptocycle.online/api/account', {
+      //   headers: {
+      //     Accept: 'application/json',
+      //     Authorization: `Bearer ${user.access_token}`,
+      //   },
+      // });
+      // console.log(test);
     },
   },
 };

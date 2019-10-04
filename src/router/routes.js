@@ -2,7 +2,7 @@
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MyLayout.vue'),
+    component: () => import('layouts/unauthed.vue'),
     children: [
       { path: '', component: () => import('pages/Splash/Index.vue') },
     ],
@@ -30,10 +30,17 @@ const routes = [
     ],
   },
   {
+    path: '/withdraw',
+    component: () => import('layouts/MyLayout.vue'),
+    children: [
+      { name: 'withdraw balance', path: '', component: () => import('pages/Withdraw') },
+    ],
+  },
+  {
     path: '/recycle',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Recycle') },
+      { path: '', component: () => import('pages/Scan') },
     ],
   },
   {

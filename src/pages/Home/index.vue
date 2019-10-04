@@ -16,7 +16,10 @@
                 150
               </div>
               points balance
-              <div class="actions q-pa-sm bg-secondary text-white text-weight-bold q-mr-xs q-mt-sm">
+              <div
+                class="actions q-pa-sm bg-secondary text-white text-weight-bold q-mr-xs q-mt-sm"
+                @click="$router.push('/rewards')"
+              >
                 spend points
               </div>
             </div>
@@ -29,6 +32,7 @@
               cash balance
               <div
                 class="actions q-pa-sm bg-secondary text-white text-weight-bold q-ml-xs q-mt-sm"
+                @click="$router.push('/withdraw')"
               >
                 withdraw balance
               </div>

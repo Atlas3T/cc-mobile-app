@@ -25,7 +25,7 @@ export default {
   mounted() {
     const mgr = this.$oidc;
     mgr.signinRedirectCallback().then(() => {
-      window.location.href = '/';
+      this.$router.push({ path: '/' });
     }).catch((err) => {
       console.log(err);
     });
