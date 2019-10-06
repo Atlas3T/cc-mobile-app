@@ -29,6 +29,7 @@
           unelevated
           color="secondary"
           class="scan-button absolute-center"
+          @click="tab='recycle'"
         >
           <q-icon name="crop_free" />
         </q-btn>
@@ -85,7 +86,7 @@ export default {
 
   data() {
     return {
-      tab: 'recycle',
+      tab: '',
       signedIn: false,
     };
   },
