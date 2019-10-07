@@ -6,8 +6,8 @@ export default ({ router }) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     if (requiresAuth) {
       mgr.getToken().then(
-        (sucess) => {
-          if (sucess.id_token) {
+        (success) => {
+          if (success) {
             next();
           } else {
             next('/accessdenied');

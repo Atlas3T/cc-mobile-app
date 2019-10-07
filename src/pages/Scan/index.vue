@@ -14,6 +14,7 @@
 </template>
 <script>
 import { BrowserMultiFormatReader } from '@zxing/library';
+import User from '../../store/User';
 
 export default {
 
@@ -23,18 +24,27 @@ export default {
       firstDeviceId: null,
       accountNumber: null,
       recyclePoint: null,
+      itemCounter: 0,
     };
   },
-  async mounted() {
-    const user = await this.$axios.get('https://cryptocycle.online/api/account');
-    this.accountNumber = user.data.data.accountNumber;
-    console.log(user.data);
-    const balances = await this.$axios.get('https://cryptocycle.online/api/account/balances');
-    console.log(balances);
-    const statistics = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
-    console.log(statistics);
+  computed: {
+    user() {
+      return User.query().first();
+    },
+  },
 
-    console.log(this.codeReader);
+  beforeRouteLeave(to, from, next) {
+    this.$emit('updateStatus', null);
+
+    this.codeReader.stream.getTracks().forEach(track => track.stop());
+    next();
+  },
+
+  async mounted() {
+    console.log(this.user);
+    this.$emit('updateStatus', 'Scan return point');
+    this.accountNumber = this.user.accountNumber;
+
     this.codeReader
       .listVideoInputDevices()
       .then((videoInputDevices) => {
@@ -87,8 +97,10 @@ export default {
         .catch(err => console.error(err));
     },
 
-    async checkBottle() {
-      const code = encodeURI('\\F210000000000');
+    async checkBottle(barcode) {
+      console.log(barcode);
+      const code = encodeURI(barcode);
+      console.log(code);
       const recyclePoint = await this.$axios.get(`https://cryptocycle.online/api/recyclables/${code}`);
       console.log(recyclePoint);
       if (recyclePoint.status === 200) {
@@ -102,15 +114,18 @@ export default {
     },
 
     async scanBottle() {
-      console.log('scan bottle called');
+      this.$emit('updateStatus', 'Scan your item');
+
       const res = await this.codeReader
         .decodeFromInputVideoDevice(this.firstDeviceId, 'video')
         .then(async (result) => {
           console.log(result.text);
-          const valid = await this.checkBottle();
+          const valid = await this.checkBottle(result.text);
           if (valid) {
+            this.$emit('updateStatus', 'item scanned', 'bg-secondary text-accent');
             const tx = await this.createRecycleTx([valid]);
             console.log(tx);
+            this.itemCounter += 1;
             return true;
           }
           this.scanBottle();
@@ -119,6 +134,7 @@ export default {
         .catch(err => console.error(err));
 
       console.log(res);
+      this.scanBottle();
     },
   },
 };

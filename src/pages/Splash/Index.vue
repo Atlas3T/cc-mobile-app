@@ -14,6 +14,7 @@
 <script>
 import { openURL } from 'quasar';
 import Mgr from '../../boot/security-oidc.js';
+import User from '../../store/User';
 
 export default {
   name: 'Splash',
@@ -27,11 +28,29 @@ export default {
   mounted() {
     setTimeout(() => {
       this.mgr.getSignedIn().then(
-        (signedIn) => {
-          if (signedIn) {
-            this.$router.push({ path: '/home' });
-          } else {
+        async (user) => {
+          if (!user) {
             this.$router.push({ path: '/login' });
+          } else {
+            this.$axios.defaults.headers.common.Authorization = `Bearer ${user.access_token}`;
+
+            const account = await this.$axios.get('https://cryptocycle.online/api/account');
+            const { accountNumber } = account.data.data;
+            const stats = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
+
+            User.insertOrUpdate({
+              data: [
+                {
+                  userName: user.profile.name,
+                  emailAddress: user.profile.email,
+                  itemsRecycled: stats.data.data[0].itemsRecycled,
+                  pointsBalance: stats.data.data[0].rewardPointsEarned,
+                  expires: user.expires_at,
+                  accountNumber,
+                },
+              ],
+            });
+            this.$router.push({ path: '/home' });
           }
         },
         (err) => {

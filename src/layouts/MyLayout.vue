@@ -1,16 +1,26 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header
-      class="bg-accent text-white text-weight-bold flex flex-center"
+      class="text-weight-bold flex flex-center"
+      :class="barColour"
     >
       <div class="top-bar row justify-between items-center">
-        <div class="col reward-balance text-secondary">
+        <div class="col reward-balance">
           150 points
         </div>
-        <div class="col-auto page-title text-center text-lowercase">
+        <div
+          v-if="customHeader === null"
+          class="col-auto page-title text-white text-center text-lowercase"
+        >
           {{ $router.currentRoute.name }}
         </div>
-        <div class="col reward-balance text-secondary text-right">
+        <div
+          v-if="customHeader !== null"
+          class="col-auto page-title text-white text-center text-lowercase"
+        >
+          {{ customHeader }}
+        </div>
+        <div class="col reward-balance text-right">
           £5.60
         </div>
       </div>
@@ -73,7 +83,7 @@
       </q-tabs>
     </q-footer>
     <q-page-container>
-      <router-view />
+      <router-view @updateStatus="updateStatus" />
     </q-page-container>
   </q-layout>
 </template>
@@ -88,6 +98,8 @@ export default {
     return {
       tab: '',
       signedIn: false,
+      customHeader: null,
+      barColour: 'bg-accent text-secondary',
     };
   },
   watch: {
@@ -117,6 +129,10 @@ export default {
   },
   methods: {
     openURL,
+    updateStatus(val, colour = 'bg-accent text-secondary') {
+      this.customHeader = val;
+      this.barColour = colour;
+    },
   },
 };
 </script>

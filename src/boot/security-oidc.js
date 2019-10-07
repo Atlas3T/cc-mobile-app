@@ -96,7 +96,7 @@ export default class SecurityService {
           return resolve(false);
         }
         console.log(user);
-        return resolve(true);
+        return resolve(user);
       }).catch((err) => {
         console.log(err);
         return reject(err);
