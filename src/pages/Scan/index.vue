@@ -28,6 +28,12 @@ export default {
   async mounted() {
     const user = await this.$axios.get('https://cryptocycle.online/api/account');
     this.accountNumber = user.data.data.accountNumber;
+    console.log(user.data);
+    const balances = await this.$axios.get('https://cryptocycle.online/api/account/balances');
+    console.log(balances);
+    const statistics = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
+    console.log(statistics);
+
     console.log(this.codeReader);
     this.codeReader
       .listVideoInputDevices()

@@ -95,6 +95,7 @@ export default class SecurityService {
           // self.signIn();
           return resolve(false);
         }
+        console.log(user);
         return resolve(true);
       }).catch((err) => {
         console.log(err);
