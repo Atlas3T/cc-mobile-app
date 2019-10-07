@@ -36,31 +36,68 @@ export default {
   },
 
   methods: {
-    async checkBin() {
-      console.log('check if qr is valid');
+    async createRecycleTx(recyclables) {
+      const tx = await this.$axios.post('https://cryptocycle.online/api/recycling-transactions', {
+        consumerAccountNumber: this.accountNumber,
+        recyclePointCode: this.recyclePoint,
+        recyclables,
+      });
+      if (tx.status === 200 || tx.status === 201) {
+        return tx;
+      }
+      return false;
     },
+
+
+    async checkBin(code) {
+      const recyclePoint = await this.$axios.get(`https://cryptocycle.online/api/recycle-points/${code}`);
+      if (recyclePoint.status === 200) {
+        return true;
+      }
+      return false;
+    },
+
     async scanBin() {
-      const res = await this.codeReader
+      await this.codeReader
         .decodeFromInputVideoDevice(this.firstDeviceId, 'video')
-        .then((result) => {
+        .then(async (result) => {
           console.log(result.text);
-          this.codeReader.reset();
-          return true;
+          const valid = await this.checkBin(result.text);
+          console.log('valid: ', valid);
+          setTimeout(() => {
+            if (valid) {
+              this.scanBottle();
+              return true;
+            }
+            this.scanBin();
+            return false;
+          }, 2000);
         })
         .catch(err => console.error(err));
+    },
 
-      console.log(res);
-    },
     async checkBottle() {
-      console.log('check if qr is valid');
+      const code = encodeURI('\\F210000000000');
+      const recyclePoint = await this.$axios.get(`https://cryptocycle.online/api/recyclables/${code}`);
+      console.log(recyclePoint);
+      if (recyclePoint.status === 200) {
+        return true;
+      }
+      return false;
     },
+
     async scanBottle() {
+      console.log('scan bottle called');
       const res = await this.codeReader
         .decodeFromInputVideoDevice(this.firstDeviceId, 'video')
-        .then((result) => {
+        .then(async (result) => {
           console.log(result.text);
-          this.codeReader.reset();
-          return true;
+          const valid = await this.checkBottle();
+          if (valid) {
+            return true;
+          }
+          this.scanBin();
+          return false;
         })
         .catch(err => console.error(err));
 

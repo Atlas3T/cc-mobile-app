@@ -125,7 +125,7 @@ export default class SecurityService {
           self.signIn();
           return resolve(false);
         }
-        return resolve(user);
+        return resolve(user.access_token);
       }).catch((err) => {
         console.log(err);
         return reject(err);
