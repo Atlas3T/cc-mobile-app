@@ -6,7 +6,7 @@
     >
       <div class="top-bar row justify-between items-center">
         <div class="col reward-balance">
-          150 points
+          {{ user.pointsBalance }} points
         </div>
         <div
           v-if="customHeader === null"
@@ -90,6 +90,7 @@
 
 <script>
 import { openURL } from 'quasar';
+import User from '../store/User';
 
 export default {
   name: 'MyLayout',
@@ -101,6 +102,11 @@ export default {
       customHeader: null,
       barColour: 'bg-accent text-secondary',
     };
+  },
+  computed: {
+    user() {
+      return User.query().first();
+    },
   },
   watch: {
     tab(val) {

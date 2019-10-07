@@ -13,7 +13,7 @@
           <div class="row">
             <div class="col text-center text-grey-6">
               <div class="amount-left text-h3 text-accent text-weight-bold">
-                150
+                {{ user.pointsBalance }}
               </div>
               points balance
               <div
@@ -60,7 +60,7 @@
             >
               <div class="q-ma-sm">
                 <div class="text-h3 text-weight-bold">
-                  10
+                  {{ user.itemsRecycled }}
                 </div>
                 <div class="text-body1 text-grey-6">
                   bottles
@@ -68,7 +68,7 @@
               </div>
             </q-knob>
             <div class="q-mt-xl q-pt-sm text-weight-bold text-h6">
-              100
+              {{ user.pointsBalance }}
             </div>
             <div class="text-grey-6 text-weight-bold">
               points
@@ -113,6 +113,8 @@
 </template>
 
 <script>
+import User from '../../store/User';
+
 export default {
   name: 'Home',
 
@@ -121,6 +123,12 @@ export default {
       value1: 80,
       value2: 50,
     };
+  },
+
+  computed: {
+    user() {
+      return User.query().first();
+    },
   },
 
 };
