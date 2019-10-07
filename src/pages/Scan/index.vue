@@ -21,9 +21,13 @@ export default {
     return {
       codeReader: new BrowserMultiFormatReader(),
       firstDeviceId: null,
+      accountNumber: null,
+      recyclePoint: null,
     };
   },
-  mounted() {
+  async mounted() {
+    const user = await this.$axios.get('https://cryptocycle.online/api/account');
+    this.accountNumber = user.data.data.accountNumber;
     console.log(this.codeReader);
     this.codeReader
       .listVideoInputDevices()
@@ -52,6 +56,7 @@ export default {
     async checkBin(code) {
       const recyclePoint = await this.$axios.get(`https://cryptocycle.online/api/recycle-points/${code}`);
       if (recyclePoint.status === 200) {
+        this.recyclePoint = recyclePoint.data.data.code;
         return true;
       }
       return false;
@@ -81,7 +86,11 @@ export default {
       const recyclePoint = await this.$axios.get(`https://cryptocycle.online/api/recyclables/${code}`);
       console.log(recyclePoint);
       if (recyclePoint.status === 200) {
-        return true;
+        const recyclable = {
+          uniqueCode: recyclePoint.data.data.code,
+          productGtin: recyclePoint.data.data.product.gtin,
+        };
+        return recyclable;
       }
       return false;
     },
@@ -94,9 +103,11 @@ export default {
           console.log(result.text);
           const valid = await this.checkBottle();
           if (valid) {
+            const tx = await this.createRecycleTx([valid]);
+            console.log(tx);
             return true;
           }
-          this.scanBin();
+          this.scanBottle();
           return false;
         })
         .catch(err => console.error(err));
