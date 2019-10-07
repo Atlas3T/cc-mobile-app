@@ -98,43 +98,59 @@ export default {
     },
 
     async checkBottle(barcode) {
-      console.log(barcode);
       const code = encodeURI(barcode);
-      console.log(code);
-      const recyclePoint = await this.$axios.get(`https://cryptocycle.online/api/recyclables/${code}`);
-      console.log(recyclePoint);
-      if (recyclePoint.status === 200) {
-        const recyclable = {
-          uniqueCode: recyclePoint.data.data.code,
-          productGtin: recyclePoint.data.data.product.gtin,
-        };
-        return recyclable;
+      try {
+        const recyclePoint = await this.$axios.get(`https://cryptocycle.online/api/recyclables/${code}`);
+        console.log(recyclePoint);
+        if (recyclePoint && recyclePoint.status === 200) {
+          const recyclable = {
+            uniqueCode: recyclePoint.data.data.code,
+            productGtin: recyclePoint.data.data.product.gtin,
+          };
+          return recyclable;
+        }
+        return false;
+      } catch (e) {
+        return false;
       }
-      return false;
     },
 
     async scanBottle() {
-      this.$emit('updateStatus', 'Scan your item');
+      const scanOk = async (result) => {
+        this.$emit('updateStatus', 'item scanned', 'bg-secondary text-accent');
 
-      const res = await this.codeReader
+        console.log(result.text);
+        const valid = await this.checkBottle(result.text);
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        if (valid) {
+          this.$emit('updateStatus', 'add item to bin', 'bg-secondary text-accent');
+          const tx = await this.createRecycleTx([valid]);
+          console.log(tx);
+          this.itemCounter += 1;
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          // return true;
+        } else {
+          this.$emit('updateStatus', 'invalid code', 'bg-red text-white');
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          // return false;
+        }
+
+        this.scanBottle();
+      };
+
+      if (this.itemCounter > 0) {
+        this.$emit('updateStatus', 'Scan another item');
+      } else {
+        this.$emit('updateStatus', 'Scan your item');
+      }
+
+      await this.codeReader
         .decodeFromInputVideoDevice(this.firstDeviceId, 'video')
-        .then(async (result) => {
-          console.log(result.text);
-          const valid = await this.checkBottle(result.text);
-          if (valid) {
-            this.$emit('updateStatus', 'item scanned', 'bg-secondary text-accent');
-            const tx = await this.createRecycleTx([valid]);
-            console.log(tx);
-            this.itemCounter += 1;
-            return true;
-          }
-          this.scanBottle();
-          return false;
-        })
+        .then(scanOk)
         .catch(err => console.error(err));
 
-      console.log(res);
-      this.scanBottle();
+    //   console.log(res);
+    //   this.scanBottle();
     },
   },
 };
