@@ -21,7 +21,7 @@
           {{ customHeader }}
         </div>
         <div class="col reward-balance text-right">
-          £5.60
+          £{{ user.cashBalance }}
         </div>
       </div>
     </q-header>
