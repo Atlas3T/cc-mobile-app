@@ -121,7 +121,6 @@ export default {
         this.signedIn = success;
         await this.$mgr.getToken().then(
           (accessToken) => {
-            console.log(accessToken);
             this.$axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
           }, (err) => {
             console.log(err);
