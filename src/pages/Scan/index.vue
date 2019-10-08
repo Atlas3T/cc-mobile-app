@@ -4,10 +4,16 @@
       id="video"
       class="camera"
     />
-    <div id="content">
-      <q-icon
-        name="crop_free"
-        class="text-white text-h1 absolute-center"
+    <div class="target-wrapper flex flex-center">
+      <div class="target" />
+    </div>
+    <div class="controls-box">
+      <q-btn
+        flat
+        icon="close"
+        color="grey-4"
+        size="lg"
+        @click="finish()"
       />
     </div>
   </q-page>
@@ -41,6 +47,10 @@ export default {
   },
 
   async mounted() {
+    // if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+    //   console.log('enumerateDevices() not supported.');
+    //   return;
+    // }
     console.log(this.user);
     this.$emit('updateStatus', 'Scan return point');
     this.accountNumber = this.user.accountNumber;
@@ -80,8 +90,12 @@ export default {
 
     async scanBin() {
       await this.codeReader
-        .decodeFromInputVideoDevice(this.firstDeviceId, 'video')
+        .decodeFromInputVideoDevice(null, 'video')
         .then(async (result) => {
+          this.$emit('updateStatus', 'recycle point scanned', 'bg-secondary text-accent');
+          this.$q.loading.show({
+            delay: 400, // ms
+          });
           console.log(result.text);
           const valid = await this.checkBin(result.text);
           console.log('valid: ', valid);
@@ -117,6 +131,9 @@ export default {
 
     async scanBottle() {
       const scanOk = async (result) => {
+        this.$q.loading.show({
+          delay: 400, // ms
+        });
         this.$emit('updateStatus', 'item scanned', 'bg-secondary text-accent');
 
         console.log(result.text);
@@ -143,80 +160,70 @@ export default {
       } else {
         this.$emit('updateStatus', 'Scan your item');
       }
-
+      this.$q.loading.hide();
       await this.codeReader
-        .decodeFromInputVideoDevice(this.firstDeviceId, 'video')
+        .decodeFromInputVideoDevice(null, 'video')
         .then(scanOk)
         .catch(err => console.error(err));
 
     //   console.log(res);
     //   this.scanBottle();
     },
+
+    async finish() {
+      this.$q.loading.show();
+      if (this.itemCounter > 0) {
+        const stats = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
+
+        User.insertOrUpdate({
+          data: [
+            {
+              accountNumber: this.user.accountNumber,
+              itemsRecycled: stats.data.data[0].itemsRecycled,
+              pointsBalance: stats.data.data[0].rewardPointsEarned,
+            },
+          ],
+        });
+      }
+
+      this.$router.push({ path: '/home' });
+      this.$q.loading.hide();
+    },
   },
 };
 </script>
 <style lang="scss">
-#content {
-  position:relative;
-  width:360px;
-  height:200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  }
-#content h2 {
-  position: absolute;
-  display: flex;
-  padding: 10px;
-  background-color: rgba(255,255,255,0.8);
-}
-#content p {
-  flex: 1;
-  display: flex;
-}
-#content img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
-
-#content:before,
-#content:after,
-#content>:last-child:before,
-#content>:last-child:after {
-    position: absolute;
-    width: 60px;
-    height: 50px;
-    border-color: white;
-    border-style: solid;
-    content: ' ';
-}
-
-#content:before {
-    top: 10px;
-    left: 10px;
-    border-width: 1px 0 0 1px
-}
-
-#content:after {
-    top: 10px;
-    right: 10px;
-    border-width: 1px 1px 0 0
-}
-
-#content>:last-child:before {
-    bottom: 10px;
-    right: 10px;
-    border-width: 0 1px 1px 0
-}
-
-#content>:last-child:after {
-    bottom: 10px;
-    left: 10px;
-    border-width: 0 0 1px 1px
+.q-loading:before {
+  top: 41px;
+  background: $primary;
+  opacity: .8;
 }
 .camera {
         width: 100%,;
         object-fit: fill;
+        height: 87vh;
     }
+
+.target {
+  width: 15rem;
+  height: 15rem;
+  border: 1rem solid rgba(0, 0, 0, 0.3);
+  background: none;
+  margin-bottom: 82px;
+}
+.target-wrapper {
+  position: absolute;
+  height: calc(100vh - 42px);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.controls-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+}
 </style>

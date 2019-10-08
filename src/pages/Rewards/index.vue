@@ -124,6 +124,7 @@ export default {
   data() {
     return {
       popup: {
+        image: 'img/pizza.jpg',
         title: 'free doughballs',
         logo: 'img/mamma-mia.png',
         description: 'when you buy any large pizza at mamma mia',
