@@ -43,6 +43,7 @@ export default {
       accountNumber: null,
       recyclePoint: null,
       itemCounter: 0,
+      newPoints: 0,
     };
   },
   computed: {
@@ -124,15 +125,26 @@ export default {
         .catch(err => console.error(err));
     },
 
+    // updateRewardPoints(val) {
+    //   console.log('called', val);
+    //   User.update({
+    //     where: this.user.accountNumber,
+    //     data: {
+    //       pointsBalance: this.user.pointsBalance + val,
+    //     },
+    //   });
+    // },
+
     async checkBottle(barcode) {
       const code = encodeURI(barcode);
       try {
-        const recyclePoint = await this.$axios.get(`https://cryptocycle.online/api/recyclables/${code}`);
-        console.log(recyclePoint);
-        if (recyclePoint && recyclePoint.status === 200) {
+        const item = await this.$axios.get(`https://cryptocycle.online/api/recyclables/${code}`);
+        console.log(item);
+        if (item && item.status === 200) {
+          // this.newPoints = item.data.data.rewardPoints;
           const recyclable = {
-            uniqueCode: recyclePoint.data.data.code,
-            productGtin: recyclePoint.data.data.product.gtin,
+            uniqueCode: item.data.data.code,
+            productGtin: item.data.data.product.gtin,
           };
           return recyclable;
         }
@@ -159,6 +171,7 @@ export default {
           const tx = await this.createRecycleTx([valid]);
           console.log(tx);
           this.itemCounter += 1;
+          // this.updateRewardPoints(this.newPoints);
           await new Promise(resolve => setTimeout(resolve, 1000));
           // return true;
         } else {
@@ -193,13 +206,11 @@ export default {
         const stats = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
 
         User.insertOrUpdate({
-          data: [
-            {
-              accountNumber: this.user.accountNumber,
-              itemsRecycled: stats.data.data[0].itemsRecycled,
-              pointsBalance: stats.data.data[0].rewardPointsEarned,
-            },
-          ],
+          data: {
+            accountNumber: this.user.accountNumber,
+            itemsRecycled: stats.data.data[0].itemsRecycled,
+            pointsBalance: stats.data.data[0].rewardPointsEarned,
+          },
         });
       }
 

@@ -50,16 +50,14 @@ export default {
             if (this.user) {
               User.update({
                 where: this.user.accountNumber,
-                data: [
-                  {
-                    userName: user.profile.name,
-                    emailAddress: user.profile.email,
-                    itemsRecycled: stats.data.data[0].itemsRecycled,
-                    pointsBalance: stats.data.data[0].rewardPointsEarned,
-                    expires: user.expires_at,
-                    accountNumber,
-                  },
-                ],
+                data: {
+                  userName: user.profile.name,
+                  emailAddress: user.profile.email,
+                  itemsRecycled: stats.data.data[0].itemsRecycled,
+                  pointsBalance: stats.data.data[0].rewardPointsEarned,
+                  expires: user.expires_at,
+                  accountNumber,
+                },
               });
             } else {
               User.insertOrUpdate({

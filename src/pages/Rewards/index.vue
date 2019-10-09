@@ -7,8 +7,10 @@
             class="reward-card"
             @click="setPopup('card1')"
           >
-            <img src="../../assets/mocks/rewards/pizza.jpg">
-            <q-card-section style="position: relative">
+            <v-lazy-image
+              src="/assets/mocks/rewards/pizza.jpg"
+              src-placeholder="../../assets/mocks/rewards/placeholders/pizza-placeholder.jpg"
+            />            <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
                 <q-avatar
                   color="red"
@@ -127,11 +129,13 @@
   </q-page>
 </template>
 <script>
+import VLazyImage from 'v-lazy-image';
 import PopupCard from '../../components/PopupCard';
 
 export default {
   components: {
     PopupCard,
+    VLazyImage,
   },
   data() {
     return {
@@ -215,5 +219,14 @@ export default {
  .reward-button {
      border-radius: 15px;
  }
+
+ .v-lazy-image {
+  filter: blur(10px);
+  transition: filter 0.7s;
+}
+
+.v-lazy-image-loaded {
+  filter: blur(0);
+}
 
 </style>
