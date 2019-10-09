@@ -49,7 +49,7 @@ const routes = [
     path: '/location',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Location') },
+      { name: 'find a return point', path: '', component: () => import('pages/Location') },
     ],
   },
   {

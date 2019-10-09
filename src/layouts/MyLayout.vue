@@ -39,29 +39,30 @@
           unelevated
           color="secondary"
           class="scan-button absolute-center"
-          @click="tab='recycle'"
+          to="/recycle"
         >
           <q-icon name="crop_free" />
         </q-btn>
       </div>
 
       <q-tabs
-        v-model="tab"
         no-caps
         active-color="white"
         indicator-color="transparent"
         class=" navbar text-white"
       >
-        <q-tab
+        <q-route-tab
           name="home"
+          to="/home"
           icon="img:statics/nav-icons/home.svg"
         />
         <q-separator
           vertical
         />
 
-        <q-tab
+        <q-route-tab
           name="rewards"
+          to="/rewards"
           icon="img:statics/nav-icons/rewards.svg"
         />
         <q-tab
@@ -69,15 +70,17 @@
           name="placeholder"
           class="placeholder"
         />
-        <q-tab
+        <q-route-tab
           name="location"
+          to="/location"
           icon="img:statics/nav-icons/map.svg"
         />
         <q-separator
           vertical
         />
-        <q-tab
+        <q-route-tab
           name="settings"
+          to="/settings"
           icon="img:statics/nav-icons/settings.svg"
         />
       </q-tabs>

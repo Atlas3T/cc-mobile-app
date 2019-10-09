@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex justify-center">
+  <q-page class="bg-black flex justify-center">
     <video
       id="video"
       class="camera"
@@ -12,6 +12,18 @@
         flat
         icon="close"
         color="grey-4"
+        size="lg"
+        @click="finish()"
+      />
+    </div>
+    <div class="finish-box absolute-center">
+      <q-btn
+        v-if="itemCounter > 0"
+        unelevated
+        rounded
+        no-caps
+        label="finish"
+        color="secondary"
         size="lg"
         @click="finish()"
       />
@@ -92,6 +104,7 @@ export default {
       await this.codeReader
         .decodeFromInputVideoDevice(null, 'video')
         .then(async (result) => {
+          window.navigator.vibrate(100);
           this.$emit('updateStatus', 'recycle point scanned', 'bg-secondary text-accent');
           this.$q.loading.show({
             delay: 400, // ms
@@ -131,6 +144,8 @@ export default {
 
     async scanBottle() {
       const scanOk = async (result) => {
+        window.navigator.vibrate(100);
+
         this.$q.loading.show({
           delay: 400, // ms
         });
@@ -160,7 +175,9 @@ export default {
       } else {
         this.$emit('updateStatus', 'Scan your item');
       }
-      this.$q.loading.hide();
+      setTimeout(() => {
+        this.$q.loading.hide();
+      }, 500);
       await this.codeReader
         .decodeFromInputVideoDevice(null, 'video')
         .then(scanOk)
@@ -224,6 +241,13 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
+  display: flex;
+}
+
+.finish-box {
+  position: absolute;
+  bottom: 40px;
+  top: inherit;
   display: flex;
 }
 </style>

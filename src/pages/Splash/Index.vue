@@ -25,9 +25,18 @@ export default {
     };
   },
 
+  computed: {
+    user() {
+      if (User.all().length > 0) {
+        return User.query().first();
+      }
+      return null;
+    },
+  },
+
   mounted() {
     setTimeout(() => {
-      this.mgr.getSignedIn().then(
+      this.$mgr.getSignedIn().then(
         async (user) => {
           if (!user) {
             this.$router.push({ path: '/login' });
@@ -38,18 +47,35 @@ export default {
             const { accountNumber } = account.data.data;
             const stats = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
 
-            User.insertOrUpdate({
-              data: [
-                {
-                  userName: user.profile.name,
-                  emailAddress: user.profile.email,
-                  itemsRecycled: stats.data.data[0].itemsRecycled,
-                  pointsBalance: stats.data.data[0].rewardPointsEarned,
-                  expires: user.expires_at,
-                  accountNumber,
-                },
-              ],
-            });
+            if (this.user) {
+              User.update({
+                where: this.user.accountNumber,
+                data: [
+                  {
+                    userName: user.profile.name,
+                    emailAddress: user.profile.email,
+                    itemsRecycled: stats.data.data[0].itemsRecycled,
+                    pointsBalance: stats.data.data[0].rewardPointsEarned,
+                    expires: user.expires_at,
+                    accountNumber,
+                  },
+                ],
+              });
+            } else {
+              User.insertOrUpdate({
+                data: [
+                  {
+                    userName: user.profile.name,
+                    emailAddress: user.profile.email,
+                    itemsRecycled: stats.data.data[0].itemsRecycled,
+                    pointsBalance: stats.data.data[0].rewardPointsEarned,
+                    expires: user.expires_at,
+                    accountNumber,
+                  },
+                ],
+              });
+            }
+
             this.$router.push({ path: '/home' });
           }
         },

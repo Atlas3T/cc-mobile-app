@@ -5,7 +5,7 @@
         <div class="col">
           <q-card
             class="reward-card"
-            @click="popup.open=true"
+            @click="setPopup('card1')"
           >
             <img src="../../assets/mocks/rewards/pizza.jpg">
             <q-card-section style="position: relative">
@@ -32,7 +32,10 @@
         </div>
 
         <div class="col">
-          <q-card class="reward-card">
+          <q-card
+            class="reward-card"
+            @click="setPopup('card2')"
+          >
             <img src="../../assets/mocks/rewards/theme-park.jpg">
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
@@ -59,7 +62,10 @@
       </div>
       <div class="row q-gutter-sm">
         <div class="col">
-          <q-card class="reward-card">
+          <q-card
+            class="reward-card"
+            @click="setPopup('card3')"
+          >
             <img src="../../assets/mocks/rewards/orange.jpg">
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
@@ -85,7 +91,10 @@
         </div>
 
         <div class="col">
-          <q-card class="reward-card">
+          <q-card
+            class="reward-card"
+            @click="setPopup('card4')"
+          >
             <img src="../../assets/mocks/rewards/clothes.jpg">
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
@@ -111,7 +120,10 @@
         </div>
       </div>
     </div>
-    <PopupCard :info="popup" />
+    <PopupCard
+      v-if="popup"
+      :info="popup"
+    />
   </q-page>
 </template>
 <script>
@@ -123,18 +135,58 @@ export default {
   },
   data() {
     return {
-      popup: {
+      card1: {
         image: 'img/pizza.jpg',
         title: 'free doughballs',
         logo: 'img/mamma-mia.png',
         description: 'when you buy any large pizza at mamma mia',
         points: 250,
         code: 'K001-KOA6-WA10-0JW1',
-        open: false,
+        reward: true,
+        open: true,
       },
+      card2: {
+        image: 'img/theme-park.jpg',
+        title: 'two kids free',
+        logo: 'img/jungle-park.png',
+        description: 'when you buy any adult ticket at jungle park',
+        points: 300,
+        code: 'K001-KOA6-WA10-0JW1',
+        reward: true,
+        open: true,
+      },
+      card3: {
+        image: 'img/orange.jpg',
+        title: 'free can of zesti',
+        logo: 'img/zesti.png',
+        description: 'with any order online at zesti',
+        points: 200,
+        code: 'K001-KOA6-WA10-0JW1',
+        reward: true,
+        open: true,
+      },
+      card4: {
+        image: 'img/clothes.jpg',
+        title: '20% off',
+        logo: 'img/kooku.png',
+        description: 'mens and womens clothing at kooku online',
+        points: 150,
+        code: 'K001-KOA6-WA10-0JW1',
+        reward: true,
+        open: true,
+      },
+      popup: null,
     };
   },
+  methods: {
+    setPopup(card) {
+      this[card].open = true;
+      this.popup = this[card];
+    },
+  },
 };
+
+
 </script>
 <style lang="scss">
 .reward-list .q-card {

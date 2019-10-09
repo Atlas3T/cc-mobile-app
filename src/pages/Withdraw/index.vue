@@ -33,7 +33,7 @@
         <div class="col">
           <q-card
             class="reward-card"
-            @click="popup.open=true"
+            @click="setPopup('card1')"
           >
             <img src="../../assets/mocks/charities/homeless.jpg">
             <q-card-section style="position: relative">
@@ -57,7 +57,10 @@
         </div>
 
         <div class="col">
-          <q-card class="reward-card">
+          <q-card
+            class="reward-card"
+            @click="setPopup('card2')"
+          >
             <img src="../../assets/mocks/charities/leopard.jpg">
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
@@ -81,7 +84,10 @@
       </div>
       <div class="row q-gutter-sm">
         <div class="col">
-          <q-card class="reward-card">
+          <q-card
+            class="reward-card"
+            @click="setPopup('card3')"
+          >
             <img src="../../assets/mocks/charities/dog.jpg">
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
@@ -104,7 +110,10 @@
         </div>
 
         <div class="col">
-          <q-card class="reward-card">
+          <q-card
+            class="reward-card"
+            @click="setPopup('card4')"
+          >
             <img src="../../assets/mocks/charities/boy.jpg">
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
@@ -127,7 +136,10 @@
         </div>
       </div>
     </div>
-    <PopupCard :info="popup" />
+    <PopupCard
+      v-if="popup"
+      :info="popup"
+    />
   </q-page>
 </template>
 <script>
@@ -139,16 +151,54 @@ export default {
   },
   data() {
     return {
-      popup: {
+      card1: {
         image: 'img/homeless.jpg',
         title: '',
         logo: 'img/centre-point.png',
         description: 'providing accomodation and support to homelss people aged 16-25',
         points: '£1',
         code: '',
-        open: false,
+        reward: false,
+        open: true,
       },
+      card2: {
+        image: 'img/leopard.jpg',
+        title: '',
+        logo: 'img/wwf.png',
+        description: 'help us protect our natural world for future generations',
+        points: '£1',
+        code: '',
+        reward: false,
+        open: true,
+      },
+      card3: {
+        image: 'img/dog.jpg',
+        title: '',
+        logo: 'img/dogs-trust.png',
+        description: 'will you be able to help an abandoned puppy get the care they need',
+        points: '£1',
+        code: '',
+        reward: false,
+        open: true,
+      },
+      card4: {
+        image: 'img/boy.jpg',
+        title: '',
+        logo: 'img/water-aid.png',
+        description: 'support wateraid and save lives',
+        points: '£1',
+        code: '',
+        reward: false,
+        open: true,
+      },
+      popup: null,
     };
+  },
+  methods: {
+    setPopup(card) {
+      this[card].open = true;
+      this.popup = this[card];
+    },
   },
 };
 </script>
