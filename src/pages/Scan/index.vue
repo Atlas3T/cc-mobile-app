@@ -246,7 +246,7 @@ export default {
 
 .finish-box {
   position: absolute;
-  bottom: 40px;
+  bottom: 15%;
   top: inherit;
   display: flex;
 }
