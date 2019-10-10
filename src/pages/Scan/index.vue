@@ -93,15 +93,21 @@ export default {
 
 
     async checkBin(code) {
-      const recyclePoint = await this.$axios.get(`https://cryptocycle.online/api/recycle-points/${code}`);
-      if (recyclePoint.status === 200) {
-        this.recyclePoint = recyclePoint.data.data.code;
-        return true;
+      try {
+        const recyclePoint = await this.$axios.get(`https://cryptocycle.online/api/recycle-points/${code}`);
+        if (recyclePoint.status === 200) {
+          this.recyclePoint = recyclePoint.data.data.code;
+          return true;
+        }
+        return false;
+      } catch (e) {
+        return false;
       }
-      return false;
     },
 
     async scanBin() {
+      this.$emit('updateStatus', 'Scan return point');
+      this.$q.loading.hide();
       await this.codeReader
         .decodeFromInputVideoDevice(null, 'video')
         .then(async (result) => {
@@ -113,11 +119,13 @@ export default {
           console.log(result.text);
           const valid = await this.checkBin(result.text);
           console.log('valid: ', valid);
-          setTimeout(() => {
+          setTimeout(async () => {
             if (valid) {
               this.scanBottle();
               return true;
             }
+            this.$emit('updateStatus', 'invalid code', 'bg-red text-white');
+            await new Promise(resolve => setTimeout(resolve, 2000));
             this.scanBin();
             return false;
           }, 2000);

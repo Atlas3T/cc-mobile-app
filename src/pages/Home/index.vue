@@ -1,11 +1,17 @@
 <template>
   <q-page class="column bg-white text-primary">
     <div class="col-6">
-      <img
+      <!-- <img
         src="../../assets/mocks/home-showcase1.jpg"
         alt=""
         class="home-showcase"
-      >
+      > -->
+      <v-lazy-image
+        :src="require('../../assets/mocks/home-showcase1.jpg')"
+        :src-placeholder="
+          require('../../assets/mocks/home-showcase-placeholder.jpg')"
+        class="home-showcase"
+      />
     </div>
     <div class="col grey-gradient q-pa-md flex flex-center">
       <div class="q-px-md q-pb-xs text-accent text-center text-h6 text-weight-bold">
@@ -160,10 +166,15 @@
 </template>
 
 <script>
+import VLazyImage from 'v-lazy-image';
 import User from '../../store/User';
 
 export default {
   name: 'Home',
+
+  components: {
+    VLazyImage,
+  },
 
   data() {
     return {

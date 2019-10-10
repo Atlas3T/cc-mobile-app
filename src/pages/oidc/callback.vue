@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="bg-primary">
     <div class="bg-primary fixed-center text-center">
       <q-spinner
         color="secondary"
