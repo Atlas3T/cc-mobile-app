@@ -19,7 +19,7 @@
       <div class="q-px-md q-pb-xs text-accent text-center text-h6 text-weight-bold">
         great work! you've recycled 5% more than last week
       </div>
-      <q-card class="balance-card">
+      <q-card class="balance-card q-mb-md">
         <q-card-section class="q-pa-sm q-pt-md">
           <div class="row">
             <div class="col text-center text-grey-6">
