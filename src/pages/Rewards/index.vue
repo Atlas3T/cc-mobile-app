@@ -8,9 +8,11 @@
             @click="setPopup('card1')"
           >
             <v-lazy-image
-              src="/assets/mocks/rewards/pizza.jpg"
-              src-placeholder="../../assets/mocks/rewards/placeholders/pizza-placeholder.jpg"
-            />            <q-card-section style="position: relative">
+              :src="require('../../assets/mocks/rewards/pizza.jpg')"
+              :src-placeholder="
+                require('../../assets/mocks/rewards/placeholders/pizza-placeholder.jpg')"
+            />
+            <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
                 <q-avatar
                   color="red"
@@ -38,7 +40,11 @@
             class="reward-card"
             @click="setPopup('card2')"
           >
-            <img src="../../assets/mocks/rewards/theme-park.jpg">
+            <v-lazy-image
+              :src="require('../../assets/mocks/rewards/theme-park.jpg')"
+              :src-placeholder="
+                require('../../assets/mocks/rewards/placeholders/theme-park-placeholder.jpg')"
+            />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
                 <q-avatar
@@ -68,7 +74,11 @@
             class="reward-card"
             @click="setPopup('card3')"
           >
-            <img src="../../assets/mocks/rewards/orange.jpg">
+            <v-lazy-image
+              :src="require('../../assets/mocks/rewards/orange.jpg')"
+              :src-placeholder="
+                require('../../assets/mocks/rewards/placeholders/orange-placeholder.jpg')"
+            />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
                 <q-avatar
@@ -97,7 +107,11 @@
             class="reward-card"
             @click="setPopup('card4')"
           >
-            <img src="../../assets/mocks/rewards/clothes.jpg">
+            <v-lazy-image
+              :src="require('../../assets/mocks/rewards/clothes.jpg')"
+              :src-placeholder="
+                require('../../assets/mocks/rewards/placeholders/clothes-placeholder.jpg')"
+            />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
                 <q-avatar

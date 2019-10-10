@@ -167,7 +167,9 @@ export default {
   min-height: 0%;
   margin: 11px 0;
 }
-
+.navbar .q-tab {
+  padding: 0 12px;
+}
 .navbar .q-tab__icon {
     width: 30px;
     height: 30px;

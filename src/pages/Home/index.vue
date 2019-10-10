@@ -2,12 +2,15 @@
   <q-page class="column bg-white text-primary">
     <div class="col-6">
       <img
-        src="../../assets/mocks/home-showcase.jpg"
+        src="../../assets/mocks/home-showcase1.jpg"
         alt=""
         class="home-showcase"
       >
     </div>
     <div class="col grey-gradient q-pa-md flex flex-center">
+      <div class="q-px-md q-pb-xs text-accent text-center text-h6 text-weight-bold">
+        great work! you've recycled 5% more than last week
+      </div>
       <q-card class="balance-card">
         <q-card-section class="q-pa-sm q-pt-md">
           <div class="row">
@@ -40,9 +43,6 @@
           </div>
         </q-card-section>
       </q-card>
-      <div class="q-pa-md text-accent text-center text-h6 text-weight-bold">
-        great work! you've recycled 5% more than last week
-      </div>
     </div>
     <div class="col flex justify-center">
       <div class="stats q-mt-xl q-mx-md q-pb-sm q-pt-md">
@@ -108,6 +108,53 @@
         src="../../assets/mocks/recycling-report-mock.png"
         style="width:95vw"
       >
+      <div
+        class="row text-center q-gutter-x-md q-my-md"
+        style="width:95vw"
+      >
+        <div class="col relative">
+          <img
+            src="../../assets/mocks/rewards/pizza.jpg"
+            alt=""
+            style="width:100%; height:100%"
+            class="round-border"
+          >
+          <div
+            class="text-white text-weight-bold text-body1
+             reward-caption absolute-center text-overlay flex flex-center round-border"
+          >
+            free doughballs
+          </div>
+        </div>
+        <div class="col relative">
+          <img
+            src="../../assets/mocks/rewards/theme-park.jpg"
+            alt=""
+            style="width:100%; height:100%"
+            class="round-border"
+          >
+          <div
+            class="text-white text-weight-bold text-body1
+             reward-caption absolute-center text-overlay flex flex-center round-border"
+          >
+            2 kids go free
+          </div>
+        </div>
+        <div class="col relative">
+          <img
+            src="../../assets/mocks/rewards/clothes.jpg"
+            alt=""
+            style="width:100%; height:100%"
+            class="round-border"
+          >
+          <div
+            class="text-white text-weight-bold text-body1
+             reward-caption absolute-center text-overlay flex flex-center round-border"
+          >
+            20% off
+          </div>
+        </div>
+      </div>
     </div>
   </q-page>
 </template>
@@ -135,6 +182,10 @@ export default {
 </script>
 
 <style lang="scss">
+
+.text-overlay {
+  background: #00000066
+}
 .home-showcase {
     width: 100vw;
 }
@@ -180,4 +231,17 @@ export default {
 .stats .knob {
   top: -10%;
 }
+
+.round-border{
+  border-radius: 15px;
+}
+.relative {
+  position: relative;
+}
+
+.reward-caption {
+  height: 100%;
+  width: 100%;
+}
+
 </style>

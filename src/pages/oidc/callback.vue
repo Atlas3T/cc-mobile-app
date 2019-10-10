@@ -1,19 +1,10 @@
 <template>
   <q-page>
-    <div class="fixed-center text-center">
-      <p>
-        <q-icon
-          name="person"
-          size="8em"
-          color="grey-5"
-        />
-      </p>
-      <p class="text-faded">
-        We're preparing your session.
-      </p>
-      ><p class="text-faded">
-        <strong>Please wait while we set up your information...</strong>
-      </p>
+    <div class="bg-primary fixed-center text-center">
+      <q-spinner
+        color="secondary"
+        size="3em"
+      />
     </div>
   </q-page>
 </template>

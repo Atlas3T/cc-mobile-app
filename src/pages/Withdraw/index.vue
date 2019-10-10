@@ -35,7 +35,11 @@
             class="reward-card"
             @click="setPopup('card1')"
           >
-            <img src="../../assets/mocks/charities/homeless.jpg">
+            <v-lazy-image
+              :src="require('../../assets/mocks/charities/homeless.jpg')"
+              :src-placeholder="
+                require('../../assets/mocks/charities/placeholders/homeless-placeholder.jpg')"
+            />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
                 <q-avatar
@@ -61,7 +65,11 @@
             class="reward-card"
             @click="setPopup('card2')"
           >
-            <img src="../../assets/mocks/charities/leopard.jpg">
+            <v-lazy-image
+              :src="require('../../assets/mocks/charities/leopard.jpg')"
+              :src-placeholder="
+                require('../../assets/mocks/charities/placeholders/leopard-placeholder.jpg')"
+            />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
                 <q-avatar
@@ -88,7 +96,11 @@
             class="reward-card"
             @click="setPopup('card3')"
           >
-            <img src="../../assets/mocks/charities/dog.jpg">
+            <v-lazy-image
+              :src="require('../../assets/mocks/charities/dog.jpg')"
+              :src-placeholder="
+                require('../../assets/mocks/charities/placeholders/dog-placeholder.jpg')"
+            />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
                 <q-avatar
@@ -114,7 +126,11 @@
             class="reward-card"
             @click="setPopup('card4')"
           >
-            <img src="../../assets/mocks/charities/boy.jpg">
+            <v-lazy-image
+              :src="require('../../assets/mocks/charities/boy.jpg')"
+              :src-placeholder="
+                require('../../assets/mocks/charities/placeholders/boy-placeholder.jpg')"
+            />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
                 <q-avatar
@@ -143,11 +159,13 @@
   </q-page>
 </template>
 <script>
+import VLazyImage from 'v-lazy-image';
 import PopupCard from '../../components/PopupCard';
 
 export default {
   components: {
     PopupCard,
+    VLazyImage,
   },
   data() {
     return {
