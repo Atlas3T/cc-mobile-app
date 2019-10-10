@@ -6,12 +6,14 @@
         alt=""
         class="home-showcase"
       > -->
-      <v-lazy-image
-        :src="require('../../assets/mocks/home-showcase1.jpg')"
-        :src-placeholder="
-          require('../../assets/mocks/home-showcase-placeholder.jpg')"
-        class="home-showcase"
-      />
+      <div @click="navToRewards">
+        <v-lazy-image
+          :src="require('../../assets/mocks/home-showcase1.jpg')"
+          :src-placeholder="
+            require('../../assets/mocks/home-showcase-placeholder.jpg')"
+          class="home-showcase"
+        />
+      </div>
     </div>
     <div class="col grey-gradient q-pa-md flex flex-center">
       <div class="q-px-md q-pb-xs text-accent text-center text-h6 text-weight-bold">
@@ -118,7 +120,10 @@
         class="row text-center q-gutter-x-md q-my-md"
         style="width:95vw"
       >
-        <div class="col relative">
+        <div
+          class="col relative"
+          @click="navToRewards"
+        >
           <img
             src="../../assets/mocks/rewards/pizza.jpg"
             alt=""
@@ -132,7 +137,10 @@
             free doughballs
           </div>
         </div>
-        <div class="col relative">
+        <div
+          class="col relative"
+          @click="navToRewards"
+        >
           <img
             src="../../assets/mocks/rewards/theme-park.jpg"
             alt=""
@@ -146,7 +154,10 @@
             2 kids go free
           </div>
         </div>
-        <div class="col relative">
+        <div
+          class="col relative"
+          @click="navToRewards"
+        >
           <img
             src="../../assets/mocks/rewards/clothes.jpg"
             alt=""
@@ -186,6 +197,12 @@ export default {
   computed: {
     user() {
       return User.query().first();
+    },
+  },
+
+  methods: {
+    navToRewards() {
+      this.$router.push({ path: '/rewards' });
     },
   },
 
