@@ -46,7 +46,9 @@ export default {
             const account = await this.$axios.get('https://cryptocycle.online/api/account');
             const { accountNumber } = account.data.data;
             const stats = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
+            const targets = await this.$axios.get('https://cryptocycle.online/api/account/targets');
 
+            console.log('targets: ', targets);
             if (this.user) {
               User.update({
                 where: this.user.accountNumber,
@@ -55,6 +57,8 @@ export default {
                   emailAddress: user.profile.email,
                   itemsRecycled: stats.data.data[0].itemsRecycled,
                   pointsBalance: stats.data.data[0].rewardPointsEarned,
+                  bottleTarget: targets.data.data.plasticBottles,
+                  canTarget: targets.data.data.cans,
                   expires: user.expires_at,
                   accountNumber,
                 },
@@ -67,6 +71,8 @@ export default {
                     emailAddress: user.profile.email,
                     itemsRecycled: stats.data.data[0].itemsRecycled,
                     pointsBalance: stats.data.data[0].rewardPointsEarned,
+                    bottleTarget: targets.data.data.plasticBottles,
+                    canTarget: targets.data.data.cans,
                     expires: user.expires_at,
                     accountNumber,
                   },

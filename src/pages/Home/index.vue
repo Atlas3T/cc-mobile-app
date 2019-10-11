@@ -57,7 +57,7 @@
         <div class="row">
           <div class="box-section col text-center">
             <q-knob
-              v-model="value1"
+              v-model="bottleTarget"
               readonly
               show-value
               size="115px"
@@ -117,7 +117,7 @@
         style="width:95vw"
       >
       <div
-        class="row text-center q-gutter-x-md q-my-md"
+        class="row text-center q-gutter-x-md q-mt-md q-mb-xl"
         style="width:95vw"
       >
         <div
@@ -197,6 +197,15 @@ export default {
   computed: {
     user() {
       return User.query().first();
+    },
+
+    bottleTarget() {
+      const val = this.user.itemsRecycled / this.user.bottleTarget * 100;
+      if (val > 100) {
+        return 100;
+      }
+      console.log(val);
+      return val;
     },
   },
 

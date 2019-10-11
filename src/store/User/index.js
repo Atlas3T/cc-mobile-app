@@ -13,6 +13,8 @@ export default class User extends Model {
       pointsBalance: this.attr(0),
       cashBalance: this.attr(0),
       itemsRecycled: this.attr(''),
+      bottleTarget: this.attr(0),
+      canTarget: this.attr(0),
       expires: this.attr(''),
     };
   }
