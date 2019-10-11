@@ -58,7 +58,7 @@
         </q-card>
         <div class="reward-button">
           <div
-            v-if="!info.claimed"
+            v-if="!info.claimed && enoughBalance"
             class=" reward-button
               bg-secondary text-center text-white text-weight-bold q-pa-md q-mt-sm"
             @click="action"
@@ -73,12 +73,20 @@
             <span v-if="info.reward">{{ info.code }}</span>
             <span v-else>confirmed</span>
           </div>
+          <div
+            v-if="info.reward && !enoughBalance"
+            class=" reward-button
+              bg-secondary text-center text-white text-weight-bold q-pa-md q-mt-sm"
+          >
+            not enough balance
+          </div>
         </div>
       </div>
     </q-dialog>
   </div>
 </template>
 <script>
+import User from '../../store/User';
 
 export default {
 
@@ -89,17 +97,33 @@ export default {
     },
   },
 
+  computed: {
+    user() {
+      return User.query().first();
+    },
+
+    enoughBalance() {
+      return this.user.pointsBalance >= this.info.points;
+    },
+  },
+
   methods: {
     action() {
       if (this.info.reward) {
+        this.claim();
+      } else {
+        this.info.description = 'thank you for your donation';
+        this.info.claimed = true;
+      }
+    },
+
+    claim() {
+      if (this.user.pointsBalance >= this.info.points) {
         this.info.title = 'congratulations!';
         this.info.description = 'voucher code to be used at online checkout';
         this.info.points = '';
-      } else {
-        this.info.description = 'thank you for your donation';
+        this.info.claimed = true;
       }
-
-      this.info.claimed = true;
     },
   },
 };
