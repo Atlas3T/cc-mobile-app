@@ -79,6 +79,7 @@
   </div>
 </template>
 <script>
+
 export default {
 
   props: {
@@ -98,9 +99,7 @@ export default {
         this.info.description = 'thank you for your donation';
       }
 
-      console.log('called');
       this.info.claimed = true;
-      console.log(this.info.claimed);
     },
   },
 };
