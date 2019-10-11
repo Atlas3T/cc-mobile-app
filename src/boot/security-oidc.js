@@ -67,7 +67,7 @@ mgr.events.addUserSignedOut(() => {
 
 export default class SecurityService {
   constructor() {
-    console.log('Construtor');
+    console.log('Constructor');
   }
 
   getUser() {

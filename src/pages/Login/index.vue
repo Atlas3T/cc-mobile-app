@@ -84,6 +84,14 @@
                         val => /[A-Z]/.test(val) ||
                           'Password must contain at least one uppercase letter']"
             />
+            <q-btn
+              flat
+              icon="navigate_before"
+              color="white"
+              size="lg"
+              class="absolute back-button q-mt-sm"
+              @click="showRegister=false"
+            />
           </div>
         </div>
       </div>
@@ -169,5 +177,10 @@ export default {
   color: white;
   font-size: x-large;
   text-align: center;
+}
+
+.back-button {
+  top: 0;
+  left: 0
 }
 </style>

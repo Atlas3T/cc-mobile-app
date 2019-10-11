@@ -221,8 +221,6 @@ export default {
     height: 40vh;
 }
 
-.reward-dialog .reward-list {
-}
 .reward-dialog .q-dialog__inner--minimized {
     padding: 0;
 }

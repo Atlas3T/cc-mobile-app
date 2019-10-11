@@ -1,11 +1,6 @@
 <template>
   <q-page class="column bg-white text-primary">
     <div class="col-6">
-      <!-- <img
-        src="../../assets/mocks/home-showcase1.jpg"
-        alt=""
-        class="home-showcase"
-      > -->
       <div @click="navToRewards">
         <v-lazy-image
           :src="require('../../assets/mocks/home-showcase1.jpg')"
