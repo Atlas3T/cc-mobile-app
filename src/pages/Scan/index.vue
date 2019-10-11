@@ -22,7 +22,7 @@
         unelevated
         rounded
         no-caps
-        label="finish"
+        :label="$t('finish')"
         color="secondary"
         size="lg"
         @click="finish()"
@@ -60,12 +60,7 @@ export default {
   },
 
   async mounted() {
-    // if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-    //   console.log('enumerateDevices() not supported.');
-    //   return;
-    // }
-    console.log(this.user);
-    this.$emit('updateStatus', 'Scan return point');
+    this.$emit('updateStatus', this.$t('scanReturnPoint'));
     this.accountNumber = this.user.accountNumber;
 
     this.codeReader
@@ -106,25 +101,23 @@ export default {
     },
 
     async scanBin() {
-      this.$emit('updateStatus', 'Scan return point');
+      this.$emit('updateStatus', this.$t('scanReturnPoint'));
       this.$q.loading.hide();
       await this.codeReader
         .decodeFromInputVideoDevice(null, 'video')
         .then(async (result) => {
           window.navigator.vibrate(100);
-          this.$emit('updateStatus', 'recycle point scanned', 'bg-secondary text-accent');
+          this.$emit('updateStatus', this.$t('recyclePointScanned'), 'bg-secondary text-accent');
           this.$q.loading.show({
             delay: 400, // ms
           });
-          console.log(result.text);
           const valid = await this.checkBin(result.text);
-          console.log('valid: ', valid);
           setTimeout(async () => {
             if (valid) {
               this.scanBottle();
               return true;
             }
-            this.$emit('updateStatus', 'invalid code', 'bg-red text-white');
+            this.$emit('updateStatus', this.$t('invalidCode'), 'bg-red text-white');
             await new Promise(resolve => setTimeout(resolve, 2000));
             this.scanBin();
             return false;
@@ -147,7 +140,6 @@ export default {
       const code = encodeURI(barcode);
       try {
         const item = await this.$axios.get(`https://cryptocycle.online/api/recyclables/${code}`);
-        console.log(item);
         if (item && item.status === 200) {
           // this.newPoints = item.data.data.rewardPoints;
           const recyclable = {
@@ -169,21 +161,19 @@ export default {
         this.$q.loading.show({
           delay: 400, // ms
         });
-        this.$emit('updateStatus', 'item scanned', 'bg-secondary text-accent');
+        this.$emit('updateStatus', this.$t('itemScanned'), 'bg-secondary text-accent');
 
-        console.log(result.text);
         const valid = await this.checkBottle(result.text);
         await new Promise(resolve => setTimeout(resolve, 1000));
         if (valid) {
-          this.$emit('updateStatus', 'add item to bin', 'bg-secondary text-accent');
-          const tx = await this.createRecycleTx([valid]);
-          console.log(tx);
+          this.$emit('updateStatus', this.$t('addItemToBin'), 'bg-secondary text-accent');
+          await this.createRecycleTx([valid]);
           this.itemCounter += 1;
           // this.updateRewardPoints(this.newPoints);
           await new Promise(resolve => setTimeout(resolve, 1000));
           // return true;
         } else {
-          this.$emit('updateStatus', 'invalid code', 'bg-red text-white');
+          this.$emit('updateStatus', this.$t('invalidCode'), 'bg-red text-white');
           await new Promise(resolve => setTimeout(resolve, 2000));
           // return false;
         }
@@ -192,9 +182,9 @@ export default {
       };
 
       if (this.itemCounter > 0) {
-        this.$emit('updateStatus', 'Scan another item');
+        this.$emit('updateStatus', this.$t('scanAnotherItem'));
       } else {
-        this.$emit('updateStatus', 'Scan your item');
+        this.$emit('updateStatus', this.$t('scanYourItem'));
       }
       setTimeout(() => {
         this.$q.loading.hide();

@@ -21,12 +21,12 @@
               <div class="amount-left text-h3 text-accent text-weight-bold">
                 {{ user.pointsBalance }}
               </div>
-              points balance
+              {{ $t('pointsBalance') }}
               <div
                 class="actions q-pa-sm bg-secondary text-white text-weight-bold q-mr-xs q-mt-sm"
                 @click="$router.push('/rewards')"
               >
-                spend points
+                {{ $t('spendPoints') }}
               </div>
             </div>
             <div
@@ -40,7 +40,7 @@
                 class="actions q-pa-sm bg-secondary text-white text-weight-bold q-ml-xs q-mt-sm"
                 @click="$router.push('/withdraw')"
               >
-                withdraw balance
+                {{ $t('withdrawBalance') }}
               </div>
             </div>
           </div>
@@ -66,7 +66,7 @@
                   {{ user.itemsRecycled }}
                 </div>
                 <div class="text-body1 text-grey-6">
-                  bottles
+                  {{ $t('bottles') }}
                 </div>
               </div>
             </q-knob>
@@ -74,7 +74,7 @@
               {{ user.pointsBalance }}
             </div>
             <div class="text-grey-6 text-weight-bold">
-              points
+              {{ $t('points') }}
             </div>
           </div>
           <q-separator vertical />
@@ -94,7 +94,7 @@
                   5
                 </div>
                 <div class="text-body1 text-grey-6">
-                  cans
+                  {{ $t('cans') }}
                 </div>
               </div>
             </q-knob>
@@ -102,7 +102,7 @@
               50
             </div>
             <div class="text-grey-6 text-weight-bold">
-              points
+              {{ $t('points') }}
             </div>
           </div>
         </div>

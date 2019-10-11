@@ -8,7 +8,7 @@
           color="secondary"
           text-color="white"
           size="xl"
-          label="sign up"
+          :label="$t('signUp')"
           class="login-button bottom-button"
           @click="showRegister=true"
         />
@@ -18,7 +18,7 @@
           color="#3f3e3e"
           text-color="white"
           size="xl"
-          label="log in"
+          :label="$t('login')"
           class="login-button bottom-button"
           @click="login"
         />
@@ -28,7 +28,7 @@
           color="#3f3e3e"
           text-color="white"
           size="xl"
-          label="register"
+          :label="$t('register')"
           class="login-button bottom-button"
           @click="register"
         />
@@ -44,8 +44,7 @@
               class="logo q-pr-sm q-mb-xl"
             >
             <p class="recycle-fact">
-              DID YOU KNOW... just one recycled plastic bottle can save enough
-              energy to power a bulb for 3 hours
+              {{ $t('recycleFact') }}
             </p>
           </div>
           <div v-if="showRegister">
@@ -55,9 +54,9 @@
               color="secondary"
               bg-color="white"
               outlined
-              label="username"
+              :label="$t('username')"
               lazy-rules
-              :rules="[ val => val && val.length > 0 || 'Please type something']"
+              :rules="[ val => val && val.length > 0 || $t('emptyField')]"
             />
             <q-input
               ref="email"
@@ -65,10 +64,10 @@
               color="secondary"
               bg-color="white"
               outlined
-              label="email"
+              :label="$t('email')"
               lazy-rules
               :rules="[ val => val && emailRegex.test(val.toLowerCase()) ||
-                'Please enter a valid email address']"
+                $t('invalidEmail')]"
             />
             <q-input
               ref="password"
@@ -77,12 +76,11 @@
               color="secondary"
               bg-color="white"
               outlined
-              label="password"
+              :label="$t('password')"
               lazy-rules
-              :rules="[ val => val && val.length > 8 || 'Password must be at least 8 characters',
-                        val => /\d/.test(val) || 'Password must contain a number',
-                        val => /[A-Z]/.test(val) ||
-                          'Password must contain at least one uppercase letter']"
+              :rules="[ val => val && val.length > 8 || $t('minCharactersErr'),
+                        val => /\d/.test(val) || $t('noNumbersErr'),
+                        val => /[A-Z]/.test(val) || $t('noUppercaseErr')]"
             />
             <q-btn
               flat

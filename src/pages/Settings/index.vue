@@ -8,7 +8,7 @@
           v-ripple
           clickable
         >
-          <q-item-section>Account</q-item-section>
+          <q-item-section>{{ $t('account') }}</q-item-section>
         </q-item>
 
         <q-item
@@ -16,14 +16,14 @@
           clickable
         >
           <q-item-section>
-            <q-item-label>your Rewards</q-item-label>
+            <q-item-label>{{ $t('yourRewards') }}</q-item-label>
           </q-item-section>
         </q-item>
         <q-item
           v-ripple
           clickable
         >
-          <q-item-section>About</q-item-section>
+          <q-item-section>{{ $t('about') }}</q-item-section>
         </q-item>
 
         <q-item
@@ -31,7 +31,7 @@
           clickable
         >
           <q-item-section>
-            <q-item-label>Terms & Conditons</q-item-label>
+            <q-item-label>{{ $t('termsConditions') }}</q-item-label>
           </q-item-section>
         </q-item>
 
@@ -40,7 +40,7 @@
           clickable
         >
           <q-item-section>
-            Privacy Policy
+            {{ $t('privacyPolicy') }}
           </q-item-section>
         </q-item>
         <q-item
@@ -49,7 +49,7 @@
           @click="signOut"
         >
           <q-item-section>
-            Log Out
+            {{ $t('logOut') }}
           </q-item-section>
         </q-item>
         <q-item
@@ -57,7 +57,7 @@
           clickable
         >
           <q-item-section>
-            help
+            {{ $t('help') }}
           </q-item-section>
         </q-item>
       </q-list>
@@ -71,18 +71,7 @@ export default {
 
   methods: {
     async signOut() {
-      // this.$oidc.signoutRedirect();
-      // console.log(this.$oidc);
-
       await this.$mgr.signOut();
-
-      // const test = await fetch('https://cryptocycle.online/api/account', {
-      //   headers: {
-      //     Accept: 'application/json',
-      //     Authorization: `Bearer ${user.access_token}`,
-      //   },
-      // });
-      // console.log(test);
     },
   },
 };
