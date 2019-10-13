@@ -1,6 +1,9 @@
 
 <template>
-  <div id="q-app">
+  <div
+    v-if="ready"
+    id="q-app"
+  >
     <router-view />
   </div>
 </template>
@@ -13,12 +16,18 @@ export default {
 
   data() {
     return {
-      mgr: new Mgr(),
+      ready: false,
+      config: null,
     };
   },
 
   mounted() {
-    Object.getPrototypeOf(this.$root).$mgr = new Mgr();
+    this.$axios.get(`${window.location.origin}/statics/config.json`).then((response) => {
+      this.config = response.data;
+      console.log(this.config);
+      Object.getPrototypeOf(this.$root).$mgr = new Mgr(this.config);
+      this.ready = true;
+    });
   },
 };
 </script>

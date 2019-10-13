@@ -13,7 +13,7 @@
 
 <script>
 import { openURL } from 'quasar';
-import Mgr from '../../boot/security-oidc.js';
+// import Mgr from '../../boot/security-oidc.js';
 import User from '../../store/User';
 
 export default {
@@ -21,7 +21,7 @@ export default {
 
   data() {
     return {
-      mgr: new Mgr(),
+      // mgr: new Mgr(),
     };
   },
 

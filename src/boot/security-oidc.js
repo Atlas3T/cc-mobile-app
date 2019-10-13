@@ -2,78 +2,78 @@
 import 'babel-polyfill';
 import Oidc from 'oidc-client';
 
-const mgr = new Oidc.UserManager({
-  userStore: new Oidc.WebStorageStateStore({
-    // prefix: 'oidc',
-    store: window.localStorage,
-  }),
-  authority: 'https://cryptocycle.online/identity/',
-  client_id: 'r4w.app.implicit',
-  redirect_uri: 'https://192.168.1.233:8080/#/callback#',
-  response_type: 'id_token token',
-  scope: 'openid profile email r4w-api-consumer', // 'openid profile',
-  post_logout_redirect_uri: 'https://192.168.1.233:8080/',
-  silent_redirect_uri: `${window.location.origin}/silent-renew.html`,
-  accessTokenExpiringNotificationTime: 2,
-  automaticSilentRenew: true,
-  filterProtocolClaims: true,
-  loadUserInfo: true,
-  clockSkew: 900,
-  silentRequestTimeout: 2,
-});
-
 Oidc.Log.logger = console;
 Oidc.Log.level = Oidc.Log.INFO;
 
-mgr.events.addUserLoaded((user, ...args) => {
-  console.log('New User Loaded：', args);
-});
-
-mgr.events.addAccessTokenExpiring((...args) => {
-  console.log('AccessToken Expiring：', args);
-});
-
-mgr.events.addAccessTokenExpired((...args) => {
-  console.log('AccessToken Expired：', args);
-  // alert('Session expired. Going out!')
-  //   Dialog.create({
-  //     title: 'Session expired',
-  //     message: 'Redirection to authenticate.',
-  //     preventClose: true,
-  //   }).then(() => {
-  try {
-    mgr.signoutRedirect().then((resp) => {
-      console.log('signed out', resp);
-    }).catch((err) => {
-      console.log(err);
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-mgr.events.addSilentRenewError((...args) => {
-  console.error('Silent Renew Error：', args);
-});
-
-mgr.events.addUserSignedOut(() => {
-  mgr.removeUser().then(() => {
-    mgr.clearStaleState()
-      .then(() => {
-        mgr.signinRedirect();
-      });
-  });
-});
-
 export default class SecurityService {
-  constructor() {
-    console.log('Constructor');
+  constructor(config) {
+    console.log('constructor');
+    this.mgr = new Oidc.UserManager({
+      userStore: new Oidc.WebStorageStateStore({
+        // prefix: 'oidc',
+        store: window.localStorage,
+      }),
+      authority: 'https://cryptocycle.online/identity/',
+      client_id: 'r4w.app.implicit',
+      redirect_uri: config.callback,
+      response_type: 'id_token token',
+      scope: 'openid profile email r4w-api-consumer', // 'openid profile',
+      post_logout_redirect_uri: config.logout_redirect,
+      silent_redirect_uri: `${window.location.origin}/silent-renew.html`,
+      accessTokenExpiringNotificationTime: 2,
+      automaticSilentRenew: true,
+      filterProtocolClaims: true,
+      loadUserInfo: true,
+      clockSkew: 900,
+      silentRequestTimeout: 2,
+    });
+
+    this.mgr.events.addUserLoaded((user, ...args) => {
+      console.log('New User Loaded：', args);
+    });
+
+    this.mgr.events.addAccessTokenExpiring((...args) => {
+      console.log('AccessToken Expiring：', args);
+    });
+
+    this.mgr.events.addAccessTokenExpired((...args) => {
+      console.log('AccessToken Expired：', args);
+      // alert('Session expired. Going out!')
+      //   Dialog.create({
+      //     title: 'Session expired',
+      //     message: 'Redirection to authenticate.',
+      //     preventClose: true,
+      //   }).then(() => {
+      try {
+        this.mgr.signoutRedirect().then((resp) => {
+          console.log('signed out', resp);
+        }).catch((err) => {
+          console.log(err);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
+    this.mgr.events.addSilentRenewError((...args) => {
+      console.error('Silent Renew Error：', args);
+    });
+
+    this.mgr.events.addUserSignedOut(() => {
+      this.mgr.removeUser().then(() => {
+        this.mgr.clearStaleState()
+          .then(() => {
+            this.mgr.signinRedirect();
+          });
+      });
+    });
   }
+
 
   getUser() {
     const self = this;
     return new Promise((resolve, reject) => {
-      mgr.getUser().then((user) => {
+      this.mgr.getUser().then((user) => {
         if (user == null) {
           self.signIn();
           return resolve(null);
@@ -89,7 +89,7 @@ export default class SecurityService {
   getSignedIn() {
     // const self = this;
     return new Promise((resolve, reject) => {
-      mgr.getUser().then((user) => {
+      this.mgr.getUser().then((user) => {
         if (user == null) {
           // self.signIn();
           return resolve(false);
@@ -104,13 +104,13 @@ export default class SecurityService {
   }
 
   signIn() {
-    mgr.signinRedirect().catch((err) => {
+    this.mgr.signinRedirect().catch((err) => {
       console.log(err);
     });
   }
 
   signOut() {
-    mgr.signoutRedirect().then((resp) => {
+    this.mgr.signoutRedirect().then((resp) => {
       console.log('signed out', resp);
     }).catch((err) => {
       console.log(err);
@@ -120,7 +120,7 @@ export default class SecurityService {
   getToken() {
     const self = this;
     return new Promise((resolve, reject) => {
-      mgr.getUser().then((user) => {
+      this.mgr.getUser().then((user) => {
         if (user == null) {
           self.signIn();
           return resolve(false);
@@ -136,7 +136,7 @@ export default class SecurityService {
   getProfile() {
     const self = this;
     return new Promise((resolve, reject) => {
-      mgr.getUser().then((user) => {
+      this.mgr.getUser().then((user) => {
         if (user == null) {
           self.signIn();
           return resolve(false);
@@ -152,7 +152,7 @@ export default class SecurityService {
   getIdToken() {
     const self = this;
     return new Promise((resolve, reject) => {
-      mgr.getUser().then((user) => {
+      this.mgr.getUser().then((user) => {
         if (user == null) {
           self.signIn();
           return resolve(false);
@@ -168,7 +168,7 @@ export default class SecurityService {
   getSessionState() {
     const self = this;
     return new Promise((resolve, reject) => {
-      mgr.getUser().then((user) => {
+      this.mgr.getUser().then((user) => {
         if (user == null) {
           self.signIn();
           return resolve(false);
@@ -184,7 +184,7 @@ export default class SecurityService {
   getAcessToken() {
     const self = this;
     return new Promise((resolve, reject) => {
-      mgr.getUser().then((user) => {
+      this.mgr.getUser().then((user) => {
         if (user == null) {
           self.signIn();
           return resolve(false);
@@ -200,7 +200,7 @@ export default class SecurityService {
   getScopes() {
     const self = this;
     return new Promise((resolve, reject) => {
-      mgr.getUser().then((user) => {
+      this.mgr.getUser().then((user) => {
         if (user == null) {
           self.signIn();
           return resolve(false);
@@ -216,7 +216,7 @@ export default class SecurityService {
   getRole() {
     const self = this;
     return new Promise((resolve, reject) => {
-      mgr.getUser().then((user) => {
+      this.mgr.getUser().then((user) => {
         if (user == null) {
           self.signIn();
           return resolve(false);
