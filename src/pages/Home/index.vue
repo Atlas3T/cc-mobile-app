@@ -3,9 +3,9 @@
     <div class="col-6">
       <div @click="navToRewards">
         <v-lazy-image
-          :src="require('../../assets/mocks/home-showcase1.jpg')"
+          :src="require('../../statics/mocks/home-showcase1.jpg')"
           :src-placeholder="
-            require('../../assets/mocks/home-showcase-placeholder.jpg')"
+            require('../../statics/mocks/home-showcase-placeholder.jpg')"
           class="home-showcase"
         />
       </div>
@@ -112,7 +112,7 @@
         </div>
       </div>
       <img
-        src="../../assets/mocks/recycling-report-mock.png"
+        src="../../statics/mocks/recycling-report-mock.png"
         style="width:95vw"
       >
       <div
@@ -124,7 +124,7 @@
           @click="navToRewards"
         >
           <img
-            src="../../assets/mocks/rewards/pizza.jpg"
+            src="../../statics/mocks/rewards/pizza.jpg"
             alt=""
             style="width:100%; height:100%"
             class="round-border"
@@ -141,7 +141,7 @@
           @click="navToRewards"
         >
           <img
-            src="../../assets/mocks/rewards/theme-park.jpg"
+            src="../../statics/mocks/rewards/theme-park.jpg"
             alt=""
             style="width:100%; height:100%"
             class="round-border"
@@ -158,7 +158,7 @@
           @click="navToRewards"
         >
           <img
-            src="../../assets/mocks/rewards/clothes.jpg"
+            src="../../statics/mocks/rewards/clothes.jpg"
             alt=""
             style="width:100%; height:100%"
             class="round-border"

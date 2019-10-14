@@ -2,7 +2,7 @@
   <q-page class="flex justify-center bg-white text-primary">
     <div class="column">
       <img
-        src="../../assets/mocks/MAP.png"
+        src="../../statics/mocks/MAP.png"
         class="map"
       >
     </div>
