@@ -8,9 +8,9 @@
             @click="setPopup('card1')"
           >
             <v-lazy-image
-              :src="require('../../assets/mocks/rewards/pizza.jpg')"
+              :src="require('../../statics/mocks/rewards/pizza.jpg')"
               :src-placeholder="
-                require('../../assets/mocks/rewards/placeholders/pizza-placeholder.jpg')"
+                require('../../statics/mocks/rewards/placeholders/pizza-placeholder.jpg')"
             />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
@@ -20,7 +20,7 @@
                   size="80px"
                 >
                   <img
-                    src="../../assets/brand-logos/mamma-mia.png"
+                    src="../../statics/brand-logos/mamma-mia.png"
                     alt=""
                   >
                 </q-avatar>
@@ -41,9 +41,9 @@
             @click="setPopup('card2')"
           >
             <v-lazy-image
-              :src="require('../../assets/mocks/rewards/theme-park.jpg')"
+              :src="require('../../statics/mocks/rewards/theme-park.jpg')"
               :src-placeholder="
-                require('../../assets/mocks/rewards/placeholders/theme-park-placeholder.jpg')"
+                require('../../statics/mocks/rewards/placeholders/theme-park-placeholder.jpg')"
             />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
@@ -53,7 +53,7 @@
                   size="80px"
                 >
                   <img
-                    src="../../assets/brand-logos/jungle-park.png"
+                    src="../../statics/brand-logos/jungle-park.png"
                     alt=""
                   >
                 </q-avatar>
@@ -75,9 +75,9 @@
             @click="setPopup('card3')"
           >
             <v-lazy-image
-              :src="require('../../assets/mocks/rewards/orange.jpg')"
+              :src="require('../../statics/mocks/rewards/orange.jpg')"
               :src-placeholder="
-                require('../../assets/mocks/rewards/placeholders/orange-placeholder.jpg')"
+                require('../../statics/mocks/rewards/placeholders/orange-placeholder.jpg')"
             />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
@@ -87,7 +87,7 @@
                   size="80px"
                 >
                   <img
-                    src="../../assets/brand-logos/zesti.png"
+                    src="../../statics/brand-logos/zesti.png"
                     alt=""
                   >
                 </q-avatar>
@@ -108,9 +108,9 @@
             @click="setPopup('card4')"
           >
             <v-lazy-image
-              :src="require('../../assets/mocks/rewards/clothes.jpg')"
+              :src="require('../../statics/mocks/rewards/clothes.jpg')"
               :src-placeholder="
-                require('../../assets/mocks/rewards/placeholders/clothes-placeholder.jpg')"
+                require('../../statics/mocks/rewards/placeholders/clothes-placeholder.jpg')"
             />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
@@ -120,7 +120,7 @@
                   size="80px"
                 >
                   <img
-                    src="../../assets/brand-logos/kooku.png"
+                    src="../../statics/brand-logos/kooku.png"
                     alt=""
                   >
                 </q-avatar>
@@ -154,9 +154,9 @@ export default {
   data() {
     return {
       card1: {
-        image: 'img/pizza.jpg',
+        image: '../../statics/mocks/rewards/pizza.jpg',
         title: 'free doughballs',
-        logo: 'img/mamma-mia.png',
+        logo: '../../statics/brand-logos/mamma-mia.png',
         description: 'when you buy any large pizza at mamma mia',
         points: 250,
         code: 'K001-KOA6-WA10-0JW1',
@@ -164,9 +164,9 @@ export default {
         open: true,
       },
       card2: {
-        image: 'img/theme-park.jpg',
+        image: '../../statics/mocks/rewards/theme-park.jpg',
         title: 'two kids free',
-        logo: 'img/jungle-park.png',
+        logo: '../../statics/brand-logos/jungle-park.png',
         description: 'when you buy any adult ticket at jungle park',
         points: 300,
         code: 'K001-KOA6-WA10-0JW1',
@@ -174,9 +174,9 @@ export default {
         open: true,
       },
       card3: {
-        image: 'img/orange.jpg',
+        image: '../../statics/mocks/rewards/orange.jpg',
         title: 'free can of zesti',
-        logo: 'img/zesti.png',
+        logo: '../../statics/brand-logos/zesti.png',
         description: 'with any order online at zesti',
         points: 200,
         code: 'K001-KOA6-WA10-0JW1',
@@ -184,9 +184,9 @@ export default {
         open: true,
       },
       card4: {
-        image: 'img/clothes.jpg',
+        image: '../../statics/mocks/rewards/clothes.jpg',
         title: '20% off',
-        logo: 'img/kooku.png',
+        logo: '../../statics/brand-logos/kooku.png',
         description: 'mens and womens clothing at kooku online',
         points: 150,
         code: 'K001-KOA6-WA10-0JW1',

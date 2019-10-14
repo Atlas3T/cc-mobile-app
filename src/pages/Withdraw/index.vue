@@ -36,9 +36,9 @@
             @click="setPopup('card1')"
           >
             <v-lazy-image
-              :src="require('../../assets/mocks/charities/homeless.jpg')"
+              :src="require('../../statics/mocks/charities/homeless.jpg')"
               :src-placeholder="
-                require('../../assets/mocks/charities/placeholders/homeless-placeholder.jpg')"
+                require('../../statics/mocks/charities/placeholders/homeless-placeholder.jpg')"
             />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
@@ -48,7 +48,7 @@
                   size="80px"
                 >
                   <img
-                    src="../../assets/brand-logos/centre-point.png"
+                    src="../../statics/brand-logos/centre-point.png"
                     alt=""
                   >
                 </q-avatar>
@@ -66,9 +66,9 @@
             @click="setPopup('card2')"
           >
             <v-lazy-image
-              :src="require('../../assets/mocks/charities/leopard.jpg')"
+              :src="require('../../statics/mocks/charities/leopard.jpg')"
               :src-placeholder="
-                require('../../assets/mocks/charities/placeholders/leopard-placeholder.jpg')"
+                require('../../statics/mocks/charities/placeholders/leopard-placeholder.jpg')"
             />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
@@ -78,7 +78,7 @@
                   size="80px"
                 >
                   <img
-                    src="../../assets/brand-logos/wwf.png"
+                    src="../../statics/brand-logos/wwf.png"
                     alt=""
                   >
                 </q-avatar>
@@ -97,9 +97,9 @@
             @click="setPopup('card3')"
           >
             <v-lazy-image
-              :src="require('../../assets/mocks/charities/dog.jpg')"
+              :src="require('../../statics/mocks/charities/dog.jpg')"
               :src-placeholder="
-                require('../../assets/mocks/charities/placeholders/dog-placeholder.jpg')"
+                require('../../statics/mocks/charities/placeholders/dog-placeholder.jpg')"
             />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
@@ -109,7 +109,7 @@
                   size="80px"
                 >
                   <img
-                    src="../../assets/brand-logos/dogs-trust.png"
+                    src="../../statics/brand-logos/dogs-trust.png"
                     alt=""
                   >
                 </q-avatar>
@@ -127,9 +127,9 @@
             @click="setPopup('card4')"
           >
             <v-lazy-image
-              :src="require('../../assets/mocks/charities/boy.jpg')"
+              :src="require('../../statics/mocks/charities/boy.jpg')"
               :src-placeholder="
-                require('../../assets/mocks/charities/placeholders/boy-placeholder.jpg')"
+                require('../../statics/mocks/charities/placeholders/boy-placeholder.jpg')"
             />
             <q-card-section style="position: relative">
               <div class="reward-logo absolute-center">
@@ -139,7 +139,7 @@
                   size="80px"
                 >
                   <img
-                    src="../../assets/brand-logos/water-aid.png"
+                    src="../../statics/brand-logos/water-aid.png"
                     alt=""
                   >
                 </q-avatar>
@@ -170,9 +170,9 @@ export default {
   data() {
     return {
       card1: {
-        image: 'img/homeless.jpg',
+        image: '../../statics/mocks/charities/homeless.jpg',
         title: '',
-        logo: 'img/centre-point.png',
+        logo: '../../statics/brand-logos/centre-point.png',
         description: 'providing accomodation and support to homelss people aged 16-25',
         points: '£1',
         code: '',
@@ -180,9 +180,9 @@ export default {
         open: true,
       },
       card2: {
-        image: 'img/leopard.jpg',
+        image: '../../statics/mocks/charities/leopard.jpg',
         title: '',
-        logo: 'img/wwf.png',
+        logo: '../../statics/brand-logos/wwf.png',
         description: 'help us protect our natural world for future generations',
         points: '£1',
         code: '',
@@ -190,9 +190,9 @@ export default {
         open: true,
       },
       card3: {
-        image: 'img/dog.jpg',
+        image: '../../statics/mocks/charities/dog.jpg',
         title: '',
-        logo: 'img/dogs-trust.png',
+        logo: '../../statics/brand-logos/dogs-trust.png',
         description: 'will you be able to help an abandoned puppy get the care they need',
         points: '£1',
         code: '',
@@ -200,9 +200,9 @@ export default {
         open: true,
       },
       card4: {
-        image: 'img/boy.jpg',
+        image: '../../statics/mocks/charities/boy.jpg',
         title: '',
-        logo: 'img/water-aid.png',
+        logo: '../../statics/brand-logos/water-aid.png',
         description: 'support wateraid and save lives',
         points: '£1',
         code: '',
