@@ -19,12 +19,11 @@
     <div class="finish-box absolute-center">
       <q-btn
         v-if="itemCounter > 0"
-        unelevated
-        rounded
         no-caps
         :label="$t('finish')"
         color="secondary"
         size="lg"
+        content-class="finish-button"
         @click="finish()"
       />
     </div>
@@ -199,6 +198,7 @@ export default {
     },
 
     async finish() {
+      console.log(this.itemCounter);
       this.$q.loading.show();
       if (this.itemCounter > 0) {
         const stats = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
@@ -208,6 +208,8 @@ export default {
             accountNumber: this.user.accountNumber,
             itemsRecycled: stats.data.data[0].itemsRecycled,
             pointsBalance: stats.data.data[0].rewardPointsEarned,
+            itemsReturnedLast: this.itemCounter,
+            itemsReturnedTime: Date.now(),
           },
         });
       }
@@ -255,8 +257,13 @@ export default {
 
 .finish-box {
   position: absolute;
-  bottom: 15%;
-  top: inherit;
+  top: 25px;
   display: flex;
+}
+
+.finish-box button{
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 0 25px;
 }
 </style>

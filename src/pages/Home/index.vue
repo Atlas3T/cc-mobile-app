@@ -11,8 +11,12 @@
       </div>
     </div>
     <div class="col grey-gradient q-pa-md flex flex-center">
-      <div class="q-px-md q-pb-xs text-accent text-center text-h6 text-weight-bold">
-        great work! you've recycled 5% more than last week
+      <div
+        v-if="showLastReturned"
+        class="q-px-md q-pb-xs text-accent text-center text-h6 text-weight-bold"
+      >
+        great work! you've just returned {{ user.itemsReturnedLast }}
+        <span v-if="user.itemsReturnedLast < 2">item</span> <span v-else>items</span>
       </div>
       <q-card class="balance-card q-mb-md">
         <q-card-section class="q-pa-sm q-pt-md">
@@ -199,10 +203,18 @@ export default {
       if (val > 100) {
         return 100;
       }
-      console.log(val);
       return val;
     },
+
+    showLastReturned() {
+      const lastThreeHours = Date.now() - this.user.itemsReturnedTime < 10800000;
+      if (this.user.itemsReturnedLast > 0 && lastThreeHours) {
+        return true;
+      }
+      return false;
+    },
   },
+
 
   methods: {
     navToRewards() {

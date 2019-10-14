@@ -1,4 +1,6 @@
 {
-    "callback": "https://localhost:8080/#/callback#",
-    "logout_redirect": "https://192.168.1.233:8080/"
+    "callback": "https://192.168.1.233:8080/#/callback#",
+    "logout_redirect": "https://192.168.1.233:8080/",
+    "primary_colour": "#284242",
+    "secondary_colour": "#abc14d"
 }

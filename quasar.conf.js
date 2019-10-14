@@ -84,7 +84,7 @@ module.exports = function (ctx) {
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       https: true,
-      host: '192.168.0.101',
+      host: '192.168.1.233',
       // port: 8080,
       open: true, // opens browser window automatically
     },
@@ -108,8 +108,8 @@ module.exports = function (ctx) {
         // description: 'R4W Demo',
         display: 'standalone',
         orientation: 'portrait',
-        background_color: '#ffffff',
-        theme_color: '##3f3e3e',
+        background_color: '#284242',
+        theme_color: '#3f3e3e',
         icons: [
           {
             src: 'statics/icons/icon-128x128.png',

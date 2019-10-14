@@ -39,7 +39,7 @@ export default {
   account: 'account',
   yourRewards: 'your rewards',
   about: 'about',
-  termsconditions: 'terms & conditions',
+  termsConditions: 'terms & conditions',
   privacyPolicy: 'privacy policy',
   logOut: 'log out',
   help: 'help',
