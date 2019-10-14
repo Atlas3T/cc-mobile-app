@@ -136,7 +136,7 @@ export default {
     // },
 
     async checkBottle(barcode) {
-      const code = encodeURI(barcode);
+      const code = encodeURI(barcode.substr(1));
       try {
         const item = await this.$axios.get(`https://cryptocycle.online/api/recyclables/${code}`);
         if (item && item.status === 200) {
@@ -161,7 +161,6 @@ export default {
           delay: 400, // ms
         });
         this.$emit('updateStatus', this.$t('itemScanned'), 'bg-secondary text-accent');
-
         const valid = await this.checkBottle(result.text);
         await new Promise(resolve => setTimeout(resolve, 1000));
         if (valid) {

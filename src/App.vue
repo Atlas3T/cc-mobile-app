@@ -24,7 +24,7 @@ export default {
   },
 
   mounted() {
-    this.$axios.get(`${window.location.origin}/statics/config.json`).then((response) => {
+    this.$axios.get('./statics/config.json').then((response) => {
       this.config = {
         callback: response.data.callback,
         logout_redirect: response.data.logout_redirect,

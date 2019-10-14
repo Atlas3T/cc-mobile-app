@@ -19,7 +19,7 @@ export default class SecurityService {
       response_type: 'id_token token',
       scope: 'openid profile email r4w-api-consumer', // 'openid profile',
       post_logout_redirect_uri: config.logout_redirect,
-      silent_redirect_uri: `${window.location.origin}/silent-renew.html`,
+      silent_redirect_uri: `${config.logout_redirect}/silent-renew.html`,
       accessTokenExpiringNotificationTime: 2,
       automaticSilentRenew: true,
       filterProtocolClaims: true,
