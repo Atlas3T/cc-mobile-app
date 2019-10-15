@@ -50,9 +50,24 @@ export default {
 
             console.log('targets: ', targets);
             if (this.user) {
-              User.update({
-                where: this.user.accountNumber,
-                data: {
+              // User.update({
+              //   where: this.user.accountNumber,
+              //   data: {
+              //     userName: user.profile.name,
+              //     emailAddress: user.profile.email,
+              //     itemsRecycled: stats.data.data[0].itemsRecycled,
+              //     pointsBalance: stats.data.data[0].rewardPointsEarned,
+              //     bottleTarget: targets.data.data.plasticBottles,
+              //     canTarget: targets.data.data.cans,
+              //     expires: user.expires_at,
+              //     accountNumber,
+              //   },
+              // });
+              User.delete(this.user.accountNumber);
+            }
+            User.insertOrUpdate({
+              data: [
+                {
                   userName: user.profile.name,
                   emailAddress: user.profile.email,
                   itemsRecycled: stats.data.data[0].itemsRecycled,
@@ -62,23 +77,9 @@ export default {
                   expires: user.expires_at,
                   accountNumber,
                 },
-              });
-            } else {
-              User.insertOrUpdate({
-                data: [
-                  {
-                    userName: user.profile.name,
-                    emailAddress: user.profile.email,
-                    itemsRecycled: stats.data.data[0].itemsRecycled,
-                    pointsBalance: stats.data.data[0].rewardPointsEarned,
-                    bottleTarget: targets.data.data.plasticBottles,
-                    canTarget: targets.data.data.cans,
-                    expires: user.expires_at,
-                    accountNumber,
-                  },
-                ],
-              });
-            }
+              ],
+            });
+
 
             this.$router.push({ path: '/home' });
           }

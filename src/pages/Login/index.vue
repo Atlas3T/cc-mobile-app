@@ -128,9 +128,9 @@ export default {
         this.$q.loading.show();
         try {
           const newAccount = await this.$axios.post('https://cryptocycle.online/api/user', {
-            userName: this.userName,
+            userName: this.username,
             password: this.password,
-            emailAddress: this.emailAddress,
+            emailAddress: this.email,
           });
           if (newAccount.status === 200 || newAccount.status === 201) {
             this.login();
