@@ -109,10 +109,6 @@
           </div>
         </div>
       </div>
-      <!-- <img
-        src="../../statics/mocks/recycling-report-mock.png"
-        style="width:95vw"
-      > -->
       <div class="text-h6 text-grey-6 text-weight-bold">
         shop rewards
       </div>
