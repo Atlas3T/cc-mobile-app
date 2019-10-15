@@ -2,12 +2,10 @@
   <q-page class="column bg-white text-primary">
     <div class="col-6">
       <div @click="navToRewards">
-        <v-lazy-image
-          :src="require('../../statics/mocks/home-showcase1.jpg')"
-          :src-placeholder="
-            require('../../statics/mocks/home-showcase-placeholder.jpg')"
+        <img
+          src="'../../statics/mocks/home-showcase1.jpg"
           class="home-showcase"
-        />
+        >
       </div>
     </div>
     <div class="col grey-gradient q-pa-md flex flex-center">
@@ -56,7 +54,7 @@
         <div class="row">
           <div class="box-section col text-center">
             <q-knob
-              v-model="bottleTarget"
+              v-model="value1"
               readonly
               show-value
               size="115px"
@@ -179,15 +177,10 @@
 </template>
 
 <script>
-import VLazyImage from 'v-lazy-image';
 import User from '../../store/User';
 
 export default {
   name: 'Home',
-
-  components: {
-    VLazyImage,
-  },
 
   data() {
     return {
@@ -199,14 +192,6 @@ export default {
   computed: {
     user() {
       return User.query().first();
-    },
-
-    bottleTarget() {
-      const val = this.user.itemsRecycled / this.user.bottleTarget * 100;
-      if (val > 100) {
-        return 100;
-      }
-      return val;
     },
 
     showLastReturned() {

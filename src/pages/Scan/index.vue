@@ -118,7 +118,7 @@ export default {
               return true;
             }
             this.$emit('updateStatus', this.$t('invalidCode'), 'bg-red text-white');
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            await new Promise(resolve => setTimeout(resolve, 1000));
             this.scanBin();
             return false;
           }, 2000);
@@ -140,6 +140,7 @@ export default {
       const code = encodeURI(barcode.substr(1));
       try {
         const item = await this.$axios.get(`https://cryptocycle.online/api/recyclables/${code}`);
+        console.log(item.data.data);
         if (item && item.status === 200) {
           // this.newPoints = item.data.data.rewardPoints;
           const recyclable = {
@@ -163,7 +164,6 @@ export default {
         });
         this.$emit('updateStatus', this.$t('itemScanned'), 'bg-secondary text-accent');
         const valid = await this.checkBottle(result.text);
-        await new Promise(resolve => setTimeout(resolve, 1000));
         if (valid) {
           this.$emit('updateStatus', this.$t('addItemToBin'), 'bg-secondary text-accent');
           await this.createRecycleTx([valid]);
@@ -173,7 +173,7 @@ export default {
           // return true;
         } else {
           this.$emit('updateStatus', this.$t('invalidCode'), 'bg-red text-white');
-          await new Promise(resolve => setTimeout(resolve, 2000));
+          await new Promise(resolve => setTimeout(resolve, 1000));
           // return false;
         }
 

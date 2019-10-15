@@ -13,17 +13,10 @@
 
 <script>
 import { openURL } from 'quasar';
-// import Mgr from '../../boot/security-oidc.js';
 import User from '../../store/User';
 
 export default {
   name: 'Splash',
-
-  data() {
-    return {
-      // mgr: new Mgr(),
-    };
-  },
 
   computed: {
     user() {
@@ -46,23 +39,8 @@ export default {
             const account = await this.$axios.get('https://cryptocycle.online/api/account');
             const { accountNumber } = account.data.data;
             const stats = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
-            const targets = await this.$axios.get('https://cryptocycle.online/api/account/targets');
 
-            console.log('targets: ', targets);
             if (this.user) {
-              // User.update({
-              //   where: this.user.accountNumber,
-              //   data: {
-              //     userName: user.profile.name,
-              //     emailAddress: user.profile.email,
-              //     itemsRecycled: stats.data.data[0].itemsRecycled,
-              //     pointsBalance: stats.data.data[0].rewardPointsEarned,
-              //     bottleTarget: targets.data.data.plasticBottles,
-              //     canTarget: targets.data.data.cans,
-              //     expires: user.expires_at,
-              //     accountNumber,
-              //   },
-              // });
               User.delete(this.user.accountNumber);
             }
             User.insertOrUpdate({
@@ -72,8 +50,6 @@ export default {
                   emailAddress: user.profile.email,
                   itemsRecycled: stats.data.data[0].itemsRecycled,
                   pointsBalance: stats.data.data[0].rewardPointsEarned,
-                  bottleTarget: targets.data.data.plasticBottles,
-                  canTarget: targets.data.data.cans,
                   expires: user.expires_at,
                   accountNumber,
                 },
