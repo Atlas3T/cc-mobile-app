@@ -81,7 +81,7 @@ export default {
             });
 
 
-            this.$router.push({ path: '/home' });
+            this.$router.push({ path: '/recycle' });
           }
         },
         (err) => {

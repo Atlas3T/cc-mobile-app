@@ -54,7 +54,7 @@
                 </q-avatar>
               </div>
               <div class="q-mt-lg q-pt-sm text-body1 text-accent text-center text-weight-bold">
-                donate £1 to centre point
+                donate £1 to <br> centre point
               </div>
             </q-card-section>
           </q-card>
@@ -84,7 +84,7 @@
                 </q-avatar>
               </div>
               <div class="q-mt-lg q-pt-sm text-body1 text-accent text-center text-weight-bold">
-                donate £1 to wwf
+                donate £1 to <br> wwf
               </div>
             </q-card-section>
           </q-card>
@@ -115,7 +115,7 @@
                 </q-avatar>
               </div>
               <div class="q-mt-lg q-pt-sm text-body1 text-accent text-center text-weight-bold">
-                donate £1 to dogs trust
+                donate £1 to <br> dogs trust
               </div>
             </q-card-section>
           </q-card>
@@ -145,7 +145,7 @@
                 </q-avatar>
               </div>
               <div class="q-mt-lg q-pt-sm text-body1 text-accent text-center text-weight-bold">
-                donate £1 to water aid
+                donate £1 to <br> water aid
               </div>
             </q-card-section>
           </q-card>

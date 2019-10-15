@@ -11,13 +11,6 @@
       </div>
     </div>
     <div class="col grey-gradient q-pa-md flex flex-center">
-      <div
-        v-if="showLastReturned"
-        class="q-px-md q-pb-xs text-accent text-center text-h6 text-weight-bold"
-      >
-        great work! you've just returned {{ user.itemsReturnedLast }}
-        <span v-if="user.itemsReturnedLast < 2">item</span> <span v-else>items</span>
-      </div>
       <q-card class="balance-card q-mb-md">
         <q-card-section class="q-pa-sm q-pt-md">
           <div class="row">
@@ -50,6 +43,13 @@
           </div>
         </q-card-section>
       </q-card>
+      <div
+        v-if="showLastReturned"
+        class="q-px-md q-pb-xs text-accent text-center text-h6 text-weight-bold"
+      >
+        great work! <br> you've just returned {{ user.itemsReturnedLast }}
+        <span v-if="user.itemsReturnedLast < 2">item</span> <span v-else>items</span>
+      </div>
     </div>
     <div class="col flex justify-center">
       <div class="stats q-mt-xl q-mx-md q-pb-sm q-pt-md">
@@ -60,7 +60,7 @@
               readonly
               show-value
               size="115px"
-              :thickness="0.22"
+              :thickness="0.1"
               color="secondary"
               track-color="grey-3"
               class=" knob bg-white text-accent text-weight-bold absolute-center"
@@ -88,7 +88,7 @@
               readonly
               show-value
               size="115px"
-              :thickness="0.22"
+              :thickness="0.1"
               color="blue"
               track-color="grey-3"
               class="knob bg-white text-accent text-weight-bold absolute-center"
@@ -111,10 +111,13 @@
           </div>
         </div>
       </div>
-      <img
+      <!-- <img
         src="../../statics/mocks/recycling-report-mock.png"
         style="width:95vw"
-      >
+      > -->
+      <div class="text-h6 text-grey-6 text-weight-bold">
+        shop rewards
+      </div>
       <div
         class="row text-center q-gutter-x-md q-mt-md q-mb-xl"
         style="width:95vw"
@@ -188,8 +191,8 @@ export default {
 
   data() {
     return {
-      value1: 80,
-      value2: 50,
+      value1: 100,
+      value2: 100,
     };
   },
 

@@ -9,6 +9,7 @@
     </div>
     <div class="controls-box">
       <q-btn
+        v-if="itemCounter < 1"
         flat
         icon="close"
         color="grey-4"
@@ -256,13 +257,13 @@ export default {
 
 .finish-box {
   position: absolute;
-  top: 25px;
+  bottom: 14%;
+  top: inherit;
   display: flex;
 }
 
 .finish-box button{
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  padding: 0 25px;
+  border-radius: 15px;
+  padding: 0 50px;
 }
 </style>
