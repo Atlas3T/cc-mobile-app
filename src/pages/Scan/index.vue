@@ -76,15 +76,15 @@ export default {
   methods: {
 
     addItemScanned(val) {
-      const items = this.user.itemsScanned;
+      const items = this.user.itemsScanned.map(item => item);
       items.push(val);
       console.log(items);
-      // User.insertOrUpdate({
-      //   data: {
-      //     accountNumber: this.user.accountNumber,
-      //     itemsScanned: items,
-      //   },
-      // });
+      User.insertOrUpdate({
+        data: {
+          accountNumber: this.user.accountNumber,
+          itemsScanned: items,
+        },
+      });
     },
 
     async createRecycleTx(recyclables) {
@@ -172,13 +172,13 @@ export default {
         this.$emit('updateStatus', this.$t('itemScanned'), 'bg-secondary text-accent');
         const [err, valid] = await this.checkBottle(result.text);
         console.log(err);
-        if (!err) {
+        if (err) {
+          this.$emit('updateStatus', this.$t('invalidCode'), 'bg-red text-white');
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        } else {
           this.$emit('updateStatus', this.$t('addItemToBin'), 'bg-secondary text-accent');
           await this.createRecycleTx([valid]);
           this.itemCounter += 1;
-          await new Promise(resolve => setTimeout(resolve, 1000));
-        } else {
-          this.$emit('updateStatus', this.$t('invalidCode'), 'bg-red text-white');
           await new Promise(resolve => setTimeout(resolve, 1000));
         }
 
