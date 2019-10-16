@@ -74,6 +74,19 @@ export default {
   },
 
   methods: {
+
+    addItemScanned(val) {
+      const items = this.user.itemsScanned;
+      items.push(val);
+      console.log(items);
+      // User.insertOrUpdate({
+      //   data: {
+      //     accountNumber: this.user.accountNumber,
+      //     itemsScanned: items,
+      //   },
+      // });
+    },
+
     async createRecycleTx(recyclables) {
       const tx = await this.$axios.post('https://cryptocycle.online/api/recycling-transactions', {
         consumerAccountNumber: this.accountNumber,
@@ -126,32 +139,26 @@ export default {
         .catch(err => console.error(err));
     },
 
-    // updateRewardPoints(val) {
-    //   console.log('called', val);
-    //   User.update({
-    //     where: this.user.accountNumber,
-    //     data: {
-    //       pointsBalance: this.user.pointsBalance + val,
-    //     },
-    //   });
-    // },
-
     async checkBottle(barcode) {
       const code = encodeURI(barcode.substr(1));
       try {
         const item = await this.$axios.get(`https://cryptocycle.online/api/recyclables/${code}`);
         console.log(item.data.data);
         if (item && item.status === 200) {
-          // this.newPoints = item.data.data.rewardPoints;
+          if (this.user.itemsScanned.includes(item.data.data.code)) {
+            console.log('itemScanned');
+            return ['item already scanned', null];
+          }
           const recyclable = {
             uniqueCode: item.data.data.code,
             productGtin: item.data.data.product.gtin,
           };
-          return recyclable;
+          this.addItemScanned(recyclable.uniqueCode);
+          return [null, recyclable];
         }
-        return false;
+        return ['invalid code', null];
       } catch (e) {
-        return false;
+        return [e, null];
       }
     },
 
@@ -163,18 +170,16 @@ export default {
           delay: 400, // ms
         });
         this.$emit('updateStatus', this.$t('itemScanned'), 'bg-secondary text-accent');
-        const valid = await this.checkBottle(result.text);
-        if (valid) {
+        const [err, valid] = await this.checkBottle(result.text);
+        console.log(err);
+        if (!err) {
           this.$emit('updateStatus', this.$t('addItemToBin'), 'bg-secondary text-accent');
           await this.createRecycleTx([valid]);
           this.itemCounter += 1;
-          // this.updateRewardPoints(this.newPoints);
           await new Promise(resolve => setTimeout(resolve, 1000));
-          // return true;
         } else {
           this.$emit('updateStatus', this.$t('invalidCode'), 'bg-red text-white');
           await new Promise(resolve => setTimeout(resolve, 1000));
-          // return false;
         }
 
         this.scanBottle();

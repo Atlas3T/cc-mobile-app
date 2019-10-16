@@ -15,6 +15,7 @@ export default class User extends Model {
       itemsRecycled: this.attr(''),
       bottleTarget: this.attr(0),
       canTarget: this.attr(0),
+      itemsScanned: this.attr([]),
       itemsReturnedLast: this.attr(0),
       itemsReturnedTime: this.attr(0),
       expires: this.attr(''),
