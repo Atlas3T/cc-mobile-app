@@ -4,22 +4,39 @@
       id="video"
       class="camera"
     />
-    <div class="target-wrapper flex flex-center">
-      <div class="target" />
+    <div
+      class="target-wrapper flex flex-center"
+      :class="scanFail ? 'white-overlay' : ''"
+    >
+      <div
+        v-if="!scanFail"
+        class="target"
+      />
+      <div
+        v-if="scanFail"
+        class="scan-fail flex-center"
+      >
+        <div class=" scan-fail-heading text-h4 text-center text-weight-bold">
+          scan fail
+        </div>
+        <div class="text-center q-mx-xl text-grey-6 text-weight-bold">
+          scan failed because the item has already been scanned
+        </div>
+      </div>
     </div>
     <div class="controls-box">
       <q-btn
-        v-if="itemCounter < 1"
+        v-if="itemCounter < 1 || scanFail"
         flat
         icon="close"
-        color="grey-4"
+        :color="scanFail ? 'accent' : 'grey-4'"
         size="lg"
         @click="finish()"
       />
     </div>
     <div class="finish-box absolute-center">
       <q-btn
-        v-if="itemCounter > 0"
+        v-if="itemCounter > 0 && !scanFail"
         no-caps
         :label="$t('finish')"
         color="secondary"
@@ -44,6 +61,7 @@ export default {
       recyclePoint: null,
       itemCounter: 0,
       newPoints: 0,
+      scanFail: false,
     };
   },
   computed: {
@@ -171,18 +189,23 @@ export default {
         });
         this.$emit('updateStatus', this.$t('itemScanned'), 'bg-secondary text-accent');
         const [err, valid] = await this.checkBottle(result.text);
-        console.log(err);
+
         if (err) {
-          this.$emit('updateStatus', this.$t('invalidCode'), 'bg-red text-white');
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          if (err === 'invalid code') {
+            this.$emit('updateStatus', this.$t('invalidCode'), 'bg-red text-white');
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            this.scanBottle();
+          }
+          this.$emit('updateStatus', 'scan fail');
+          this.$q.loading.hide();
+          this.scanFail = true;
         } else {
           this.$emit('updateStatus', this.$t('addItemToBin'), 'bg-secondary text-accent');
           await this.createRecycleTx([valid]);
           this.itemCounter += 1;
           await new Promise(resolve => setTimeout(resolve, 1000));
+          this.scanBottle();
         }
-
-        this.scanBottle();
       };
 
       if (this.itemCounter > 0) {
@@ -203,38 +226,45 @@ export default {
     },
 
     async finish() {
-      console.log(this.itemCounter);
-      this.$q.loading.show();
-      if (this.itemCounter > 0) {
-        const stats = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
+      if (this.scanFail) {
+        this.scanFail = false;
+        this.scanBottle();
+      } else {
+        this.$q.loading.show();
+        if (this.itemCounter > 0) {
+          const stats = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
 
-        User.insertOrUpdate({
-          data: {
-            accountNumber: this.user.accountNumber,
-            itemsRecycled: stats.data.data[0].itemsRecycled,
-            pointsBalance: stats.data.data[0].rewardPointsEarned,
-            itemsReturnedLast: this.itemCounter,
-            itemsReturnedTime: Date.now(),
-          },
-        });
+          User.insertOrUpdate({
+            data: {
+              accountNumber: this.user.accountNumber,
+              itemsRecycled: stats.data.data[0].itemsRecycled,
+              pointsBalance: stats.data.data[0].rewardPointsEarned,
+              itemsReturnedLast: this.itemCounter,
+              itemsReturnedTime: Date.now(),
+            },
+          });
+        }
+
+        this.$router.push({ path: '/home' });
+        this.$q.loading.hide();
       }
-
-      this.$router.push({ path: '/home' });
-      this.$q.loading.hide();
     },
   },
 };
 </script>
 <style lang="scss">
+.white-overlay {
+  background: #ffffff66
+}
 .q-loading:before {
   top: 41px;
   background: $primary;
   opacity: .8;
 }
 .camera {
-        width: 100%,;
-        object-fit: fill;
-        height: 87vh;
+  width: 100%,;
+  object-fit: fill;
+  height: 87vh;
     }
 
 .target {
@@ -270,5 +300,16 @@ export default {
 .finish-box button{
   border-radius: 15px;
   padding: 0 50px;
+}
+
+.scan-fail {
+  width: 15rem;
+  height: 15rem;
+  background: white;
+  border-radius: 20px;
+}
+
+.scan-fail-heading {
+  margin-top: 4rem;
 }
 </style>
