@@ -170,9 +170,9 @@ export default {
   data() {
     return {
       card1: {
-        image: '../../statics/mocks/charities/homeless.jpg',
+        image: '/statics/mocks/charities/homeless.jpg',
         title: '',
-        logo: '../../statics/brand-logos/centre-point.png',
+        logo: '/statics/brand-logos/centre-point.png',
         description: 'providing accomodation and support to homelss people aged 16-25',
         points: '£1',
         code: '',
@@ -180,9 +180,9 @@ export default {
         open: true,
       },
       card2: {
-        image: '../../statics/mocks/charities/leopard.jpg',
+        image: '/statics/mocks/charities/leopard.jpg',
         title: '',
-        logo: '../../statics/brand-logos/wwf.png',
+        logo: '/statics/brand-logos/wwf.png',
         description: 'help us protect our natural world for future generations',
         points: '£1',
         code: '',
@@ -190,9 +190,9 @@ export default {
         open: true,
       },
       card3: {
-        image: '../../statics/mocks/charities/dog.jpg',
+        image: '/statics/mocks/charities/dog.jpg',
         title: '',
-        logo: '../../statics/brand-logos/dogs-trust.png',
+        logo: '/statics/brand-logos/dogs-trust.png',
         description: 'will you be able to help an abandoned puppy get the care they need',
         points: '£1',
         code: '',
@@ -200,9 +200,9 @@ export default {
         open: true,
       },
       card4: {
-        image: '../../statics/mocks/charities/boy.jpg',
+        image: '/statics/mocks/charities/boy.jpg',
         title: '',
-        logo: '../../statics/brand-logos/water-aid.png',
+        logo: '/statics/brand-logos/water-aid.png',
         description: 'support wateraid and save lives',
         points: '£1',
         code: '',
@@ -243,8 +243,6 @@ export default {
     height: 40vh;
 }
 
-.reward-dialog .reward-list {
-}
 .reward-dialog .q-dialog__inner--minimized {
     padding: 0;
 }

@@ -68,7 +68,7 @@
                   {{ user.itemsRecycled }}
                 </div>
                 <div class="text-body1 text-grey-6">
-                  {{ $t('bottles') }}
+                  items
                 </div>
               </div>
             </q-knob>
@@ -80,7 +80,7 @@
             </div>
           </div>
           <q-separator vertical />
-          <div class="box-section col text-center">
+          <!-- <div class="box-section col text-center">
             <q-knob
               v-model="value2"
               readonly
@@ -106,7 +106,7 @@
             <div class="text-grey-6 text-weight-bold">
               {{ $t('points') }}
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="text-h6 text-grey-6 text-weight-bold">

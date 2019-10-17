@@ -154,9 +154,9 @@ export default {
   data() {
     return {
       card1: {
-        image: '../../statics/mocks/rewards/pizza.jpg',
+        image: '/statics/mocks/rewards/pizza.jpg',
         title: 'free doughballs',
-        logo: '../../statics/brand-logos/mamma-mia.png',
+        logo: '/statics/brand-logos/mamma-mia.png',
         description: 'when you buy any large pizza at mamma mia',
         points: 250,
         code: 'K001-KOA6-WA10-0JW1',
@@ -164,9 +164,9 @@ export default {
         open: true,
       },
       card2: {
-        image: '../../statics/mocks/rewards/theme-park.jpg',
+        image: '/statics/mocks/rewards/theme-park.jpg',
         title: 'two kids free',
-        logo: '../../statics/brand-logos/jungle-park.png',
+        logo: '/statics/brand-logos/jungle-park.png',
         description: 'when you buy any adult ticket at jungle park',
         points: 300,
         code: 'K001-KOA6-WA10-0JW1',
@@ -174,9 +174,9 @@ export default {
         open: true,
       },
       card3: {
-        image: '../../statics/mocks/rewards/orange.jpg',
+        image: '/statics/mocks/rewards/orange.jpg',
         title: 'free can of zesti',
-        logo: '../../statics/brand-logos/zesti.png',
+        logo: '/statics/brand-logos/zesti.png',
         description: 'with any order online at zesti',
         points: 200,
         code: 'K001-KOA6-WA10-0JW1',
@@ -184,9 +184,9 @@ export default {
         open: true,
       },
       card4: {
-        image: '../../statics/mocks/rewards/clothes.jpg',
+        image: '/statics/mocks/rewards/clothes.jpg',
         title: '20% off',
-        logo: '../../statics/brand-logos/kooku.png',
+        logo: '/statics/brand-logos/kooku.png',
         description: 'mens and womens clothing at kooku online',
         points: 150,
         code: 'K001-KOA6-WA10-0JW1',

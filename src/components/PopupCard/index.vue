@@ -43,11 +43,30 @@
               VIEW WEBSITE
             </div>
             <div
-              v-if="!info.claimed"
+              v-if="!info.claimed && info.reward"
               class="text-h5 text-white text-center text-weight-bold"
             >
               {{ info.points }} <span v-if="info.reward">points</span>
             </div>
+            <div
+              v-if="!info.claimed && !info.reward"
+              class="text-h5 text-white text-center text-weight-bold"
+            >
+              <q-btn-toggle
+                v-model="model"
+                spread
+                no-caps
+                toggle-color="purple"
+                color="white"
+                text-color="black"
+                :options="[
+                  {label: 'Option 1', value: '£1'},
+                  {label: 'Option 2', value: '£5'},
+                  {label: 'Option 3', value: '£10'}
+                ]"
+              />
+            </div>
+
             <div
               v-if="info.reward && info.claimed"
               class="text-body1 text-white text-center text-weight-bold"
@@ -95,6 +114,12 @@ export default {
       type: Object,
       required: true,
     },
+  },
+
+  data() {
+    return {
+
+    };
   },
 
   computed: {
