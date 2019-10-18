@@ -22,7 +22,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>/demo-app
       <div class="text-h5 text-center text-secondary text-weight-bold">
         make a donation
       </div>
@@ -170,9 +170,9 @@ export default {
   data() {
     return {
       card1: {
-        image: '/statics/mocks/charities/homeless.jpg',
+        image: '/demo-app/statics/mocks/charities/homeless.jpg',
         title: '',
-        logo: '/statics/brand-logos/centre-point.png',
+        logo: '/demo-app/statics/brand-logos/centre-point.png',
         description: 'providing accomodation and support to homelss people aged 16-25',
         points: '£1',
         code: '',
@@ -180,9 +180,9 @@ export default {
         open: true,
       },
       card2: {
-        image: '/statics/mocks/charities/leopard.jpg',
+        image: '/demo-app/statics/mocks/charities/leopard.jpg',
         title: '',
-        logo: '/statics/brand-logos/wwf.png',
+        logo: '/demo-app/statics/brand-logos/wwf.png',
         description: 'help us protect our natural world for future generations',
         points: '£1',
         code: '',
@@ -190,9 +190,9 @@ export default {
         open: true,
       },
       card3: {
-        image: '/statics/mocks/charities/dog.jpg',
+        image: '/demo-app/statics/mocks/charities/dog.jpg',
         title: '',
-        logo: '/statics/brand-logos/dogs-trust.png',
+        logo: '/demo-app/statics/brand-logos/dogs-trust.png',
         description: 'will you be able to help an abandoned puppy get the care they need',
         points: '£1',
         code: '',
@@ -200,9 +200,9 @@ export default {
         open: true,
       },
       card4: {
-        image: '/statics/mocks/charities/boy.jpg',
+        image: '/demo-app/statics/mocks/charities/boy.jpg',
         title: '',
-        logo: '/statics/brand-logos/water-aid.png',
+        logo: '/demo-app/statics/brand-logos/water-aid.png',
         description: 'support wateraid and save lives',
         points: '£1',
         code: '',
