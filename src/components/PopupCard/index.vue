@@ -17,7 +17,7 @@
         />
         <q-card class="reward-card">
           <img
-            :src="info.image"
+            :src="image"
             class="image"
           >
           <q-card-section style="position: relative">
@@ -28,7 +28,7 @@
                 size="100px"
               >
                 <img
-                  :src="info.logo"
+                  :src="logo"
                   alt=""
                 >
               </q-avatar>
@@ -142,6 +142,12 @@ export default {
 
     enoughBalance() {
       return this.user.pointsBalance >= this.info.points;
+    },
+    image() {
+      return `${window.location.origin}${window.location.pathname}${this.info.image}`;
+    },
+    logo() {
+      return `${window.location.origin}${window.location.pathname}${this.info.logo}`;
     },
   },
 
