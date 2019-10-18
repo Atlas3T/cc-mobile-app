@@ -137,7 +137,9 @@ export default {
       await this.codeReader
         .decodeFromInputVideoDevice(null, 'video')
         .then(async (result) => {
-          window.navigator.vibrate(100);
+          // if (navigator.vibrate) {
+          //   window.navigator.vibrate(100);
+          // }
           this.$emit('updateStatus', this.$t('recyclePointScanned'), 'bg-secondary text-accent');
           this.$q.loading.show({
             delay: 400, // ms
@@ -182,8 +184,9 @@ export default {
 
     async scanBottle() {
       const scanOk = async (result) => {
-        window.navigator.vibrate(100);
-
+        // if (navigator.vibrate) {
+        //   window.navigator.vibrate(100);
+        // }
         this.$q.loading.show({
           delay: 400, // ms
         });

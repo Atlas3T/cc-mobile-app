@@ -50,19 +50,20 @@
             </div>
             <div
               v-if="!info.claimed && !info.reward"
-              class="text-h5 text-white text-center text-weight-bold"
+              class="q-mt-sm text-white text-center text-weight-bold"
             >
+              Select Amount
               <q-btn-toggle
-                v-model="model"
+                v-model="donation"
                 spread
                 no-caps
-                toggle-color="purple"
+                toggle-color="secondary"
                 color="white"
                 text-color="black"
                 :options="[
-                  {label: 'Option 1', value: '£1'},
-                  {label: 'Option 2', value: '£5'},
-                  {label: 'Option 3', value: '£10'}
+                  {label: '£1', value: '1'},
+                  {label: '£5', value: '5'},
+                  {label: '£10', value: '10'}
                 ]"
               />
             </div>
@@ -83,6 +84,14 @@
             @click="action"
           >
             <span v-if="info.reward">claim</span> <span v-else>confirm</span>
+          </div>
+          <div
+            v-if="!info.claimed && !info.reward"
+            class=" reward-button
+              bg-secondary text-center text-white text-weight-bold q-pa-md q-mt-sm"
+            @click="action"
+          >
+            confirm
           </div>
           <div
             v-if="info.claimed"
@@ -118,7 +127,7 @@ export default {
 
   data() {
     return {
-
+      donation: 1,
     };
   },
 
@@ -154,5 +163,7 @@ export default {
 };
 </script>
 <style lang="scss">
-
+.q-btn-group {
+  box-shadow: none;
+}
 </style>
