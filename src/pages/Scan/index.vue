@@ -223,9 +223,6 @@ export default {
         .decodeFromInputVideoDevice(null, 'video')
         .then(scanOk)
         .catch(err => console.error(err));
-
-    //   console.log(res);
-    //   this.scanBottle();
     },
 
     async finish() {
