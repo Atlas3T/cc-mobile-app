@@ -203,7 +203,6 @@ export default {
           this.$q.loading.hide();
           this.scanFail = true;
         } else {
-          this.$emit('updateStatus', this.$t('addItemToBin'), 'bg-secondary text-accent');
           await this.createRecycleTx([valid]);
           this.itemCounter += 1;
           await new Promise(resolve => setTimeout(resolve, 1000));

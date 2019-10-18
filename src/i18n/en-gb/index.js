@@ -29,7 +29,7 @@ export default {
   // recycle
   finish: 'finish',
   scanReturnPoint: 'scan return point',
-  recyclePointScanned: 'recycle point scanned',
+  recyclePointScanned: 'return point scanned',
   invalidCode: 'invalid code',
   itemScanned: 'item scanned',
   addItemToBin: 'add item to bin',

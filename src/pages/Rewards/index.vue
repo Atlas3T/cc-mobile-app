@@ -26,7 +26,7 @@
                 </q-avatar>
               </div>
               <div class="q-mt-lg q-pt-sm text-body1 text-accent text-center text-weight-bold">
-                free doughballs
+                free <br>doughballs
               </div>
               <div class="text-subtitle2 text-white text-center text-weight-bold">
                 250 points
@@ -59,7 +59,7 @@
                 </q-avatar>
               </div>
               <div class="q-mt-lg q-pt-sm text-body1 text-accent text-center text-weight-bold">
-                two kids free
+                two kids <br>free
               </div>
               <div class="text-subtitle2 text-white text-center text-weight-bold">
                 300 points
@@ -93,7 +93,7 @@
                 </q-avatar>
               </div>
               <div class="q-mt-lg q-pt-sm text-body1 text-accent text-center text-weight-bold">
-                free can of zesti
+                free can of <br>zesti
               </div>
               <div class="text-subtitle2 text-white text-center text-weight-bold">
                 200 points
@@ -126,7 +126,7 @@
                 </q-avatar>
               </div>
               <div class="q-mt-lg q-pt-sm text-body1 text-accent text-center text-weight-bold">
-                20% off
+                20% <br> off
               </div>
               <div class="text-subtitle2 text-white text-center text-weight-bold">
                 150 points
