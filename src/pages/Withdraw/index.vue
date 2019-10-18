@@ -22,7 +22,7 @@
             </div>
           </div>
         </div>
-      </div>/demo-app
+      </div>
       <div class="text-h5 text-center text-secondary text-weight-bold">
         make a donation
       </div>

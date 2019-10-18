@@ -52,18 +52,22 @@
               v-if="!info.claimed && !info.reward"
               class="q-mt-sm text-white text-center text-weight-bold"
             >
-              Select Amount
+              <div class="q-mb-xs">
+                Select Amount
+              </div>
               <q-btn-toggle
                 v-model="donation"
                 spread
                 no-caps
+                rounded
+                unelevated
                 toggle-color="secondary"
                 color="white"
                 text-color="black"
                 :options="[
-                  {label: '£1', value: '1'},
-                  {label: '£5', value: '5'},
-                  {label: '£10', value: '10'}
+                  {label: '£1', value: 1},
+                  {label: '£5', value: 5},
+                  {label: '£10', value: 10}
                 ]"
               />
             </div>
@@ -166,4 +170,5 @@ export default {
 .q-btn-group {
   box-shadow: none;
 }
+
 </style>
