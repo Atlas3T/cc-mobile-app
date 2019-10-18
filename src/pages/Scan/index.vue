@@ -267,7 +267,7 @@ export default {
 .camera {
   width: 100%,;
   object-fit: fill;
-  height: 87vh;
+  height: 88vh;
     }
 
 .target {
