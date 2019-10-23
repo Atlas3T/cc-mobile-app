@@ -17,7 +17,7 @@
         class="scan-fail flex-center"
       >
         <div class=" scan-fail-heading text-h4 text-center text-weight-bold">
-          scan fail
+          {{ $t('scanFail') }}
         </div>
         <div class="text-center q-mx-xl text-grey-6 text-weight-bold">
           scan failed because the item has already been scanned
@@ -164,10 +164,8 @@ export default {
       const code = encodeURI(barcode.substr(1));
       try {
         const item = await this.$axios.get(`https://cryptocycle.online/api/recyclables/${code}`);
-        console.log(item.data.data);
         if (item && item.status === 200) {
           if (this.user.itemsScanned.includes(item.data.data.code)) {
-            console.log('itemScanned');
             return ['item already scanned', null];
           }
           const recyclable = {
@@ -200,7 +198,7 @@ export default {
             await new Promise(resolve => setTimeout(resolve, 1000));
             this.scanBottle();
           }
-          this.$emit('updateStatus', 'scan fail');
+          this.$emit('updateStatus', this.$t('scanFail'));
           this.$q.loading.hide();
           this.scanFail = true;
         } else {
@@ -233,12 +231,15 @@ export default {
         this.$q.loading.show();
         if (this.itemCounter > 0) {
           const stats = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
+          const balances = await this.$axios.get('https://cryptocycle.online/api/account/balances');
+
 
           User.insertOrUpdate({
             data: {
               accountNumber: this.user.accountNumber,
               itemsRecycled: stats.data.data[0].itemsRecycled,
-              pointsBalance: stats.data.data[0].rewardPointsEarned,
+              pointsBalance: balances.data.data.rewardPoints,
+              cashBalance: balances.data.data.rewardValue,
               itemsReturnedLast: this.itemCounter,
               itemsReturnedTime: Date.now(),
             },

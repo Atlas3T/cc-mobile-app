@@ -28,7 +28,7 @@
               class="col text-center text-grey-6"
             >
               <div class="amount text-h3 text-accent text-weight-bold">
-                £{{ user.cashBalance }}
+                {{ user.cashBalance }}
               </div>
               cash balance
               <div

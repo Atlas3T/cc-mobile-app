@@ -43,13 +43,15 @@ export default {
             if (this.user) {
               User.delete(this.user.accountNumber);
             }
+            console.log(account.data.data);
             User.insertOrUpdate({
               data: [
                 {
                   userName: user.profile.name,
                   emailAddress: user.profile.email,
                   itemsRecycled: stats.data.data[0].itemsRecycled,
-                  pointsBalance: stats.data.data[0].rewardPointsEarned,
+                  pointsBalance: account.data.data.balances.rewardPoints,
+                  cashBalance: account.data.data.balances.rewardValue,
                   expires: user.expires_at,
                   accountNumber,
                 },

@@ -3,7 +3,7 @@
     <div class="reward-list q-pa-md items-start">
       <div class="q-pa-sm q-mb-sm withdraw-box text-center">
         <div class="text-h4 text-weight-bold">
-          £5.60
+          {{ user.cashBalance }}
         </div>
         <div class="text-grey-6 q-mb-xs">
           cash balance
@@ -160,6 +160,7 @@
 </template>
 <script>
 import VLazyImage from 'v-lazy-image';
+import User from '../../store/User';
 import PopupCard from '../../components/PopupCard';
 
 export default {
@@ -211,6 +212,11 @@ export default {
       },
       popup: null,
     };
+  },
+  computed: {
+    user() {
+      return User.query().first();
+    },
   },
   methods: {
     setPopup(card) {

@@ -35,6 +35,8 @@ export default {
   addItemToBin: 'add item to bin',
   scanYourItem: 'scan your item',
   scanAnotherItem: 'scan another item',
+  scanFail: 'scan fail',
+  scanFailMessage: 'scan failed because the item has already been scanned',
   // settings
   account: 'account',
   yourRewards: 'your rewards',
