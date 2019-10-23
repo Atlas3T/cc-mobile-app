@@ -165,14 +165,14 @@ export default {
       try {
         const item = await this.$axios.get(`https://cryptocycle.online/api/recyclables/${code}`);
         if (item && item.status === 200) {
-          if (this.user.itemsScanned.includes(item.data.data.code)) {
-            return ['item already scanned', null];
-          }
+          // if (this.user.itemsScanned.includes(item.data.data.code)) {
+          //   return ['item already scanned', null];
+          // }
           const recyclable = {
             uniqueCode: item.data.data.code,
             productGtin: item.data.data.product.gtin,
           };
-          this.addItemScanned(recyclable.uniqueCode);
+          // this.addItemScanned(recyclable.uniqueCode);
           return [null, recyclable];
         }
         return ['invalid code', null];
