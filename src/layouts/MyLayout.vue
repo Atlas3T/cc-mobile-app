@@ -6,7 +6,7 @@
     >
       <div class="top-bar row justify-between items-center">
         <div class="col reward-balance">
-          {{ user.pointsBalance }} points
+          {{ user.pointsBalance }} pts
         </div>
         <div
           v-if="customHeader === null"

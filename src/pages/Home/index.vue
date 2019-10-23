@@ -13,7 +13,7 @@
         <q-card-section class="q-pa-sm q-pt-md">
           <div class="row">
             <div class="col text-center text-grey-6">
-              <div class="amount-left text-h3 text-accent text-weight-bold">
+              <div class="amount amount-left text-h3 text-accent text-weight-bold">
                 {{ user.pointsBalance }}
               </div>
               {{ $t('pointsBalance') }}
@@ -21,7 +21,7 @@
                 class="actions q-pa-sm bg-secondary text-white text-weight-bold q-mr-xs q-mt-sm"
                 @click="$router.push('/rewards')"
               >
-                {{ $t('spendPoints') }}
+                spend <br> points
               </div>
             </div>
             <div
@@ -35,7 +35,7 @@
                 class="actions q-pa-sm bg-secondary text-white text-weight-bold q-ml-xs q-mt-sm"
                 @click="$router.push('/withdraw')"
               >
-                {{ $t('withdrawBalance') }}
+                withdraw <br> balance
               </div>
             </div>
           </div>
@@ -64,7 +64,7 @@
               class=" knob bg-white text-accent text-weight-bold absolute-center"
             >
               <div class="q-ma-sm">
-                <div class="text-h3 text-weight-bold">
+                <div class="items-recycled text-h3 text-weight-bold">
                   {{ user.itemsRecycled }}
                 </div>
                 <div class="text-body1 text-grey-6">
@@ -79,7 +79,7 @@
               {{ $t('points') }}
             </div>
           </div>
-          <q-separator vertical />
+          <!-- <q-separator vertical /> -->
           <!-- <div class="box-section col text-center">
             <q-knob
               v-model="value2"
@@ -228,6 +228,9 @@ export default {
 .balance-card .actions {
     border-radius: 7px;
 }
+.amount {
+  font-size: 2.6rem;
+}
 .amount-left {
     position:relative;
 }
@@ -272,4 +275,7 @@ export default {
   width: 100%;
 }
 
+.items-recycled {
+  padding-left: 4px;
+}
 </style>

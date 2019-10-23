@@ -21,7 +21,7 @@ export default {
   // home
   pointsBalance: 'points balance',
   cashBalance: 'cash balance',
-  spendPoints: 'spend ponts',
+  spendPoints: 'spend points',
   withdrawBalance: 'withdraw balance',
   points: 'points',
   bottles: 'bottles',
