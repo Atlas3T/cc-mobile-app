@@ -177,7 +177,7 @@ export default {
         }
         return ['invalid code', null];
       } catch (e) {
-        return [e, null];
+        return ['invalid code', null];
       }
     },
 
@@ -193,14 +193,15 @@ export default {
         const [err, valid] = await this.checkBottle(result.text);
 
         if (err) {
+          console.log(err);
           if (err === 'invalid code') {
             this.$emit('updateStatus', this.$t('invalidCode'), 'bg-red text-white');
             await new Promise(resolve => setTimeout(resolve, 1000));
             this.scanBottle();
           }
-          this.$emit('updateStatus', this.$t('scanFail'));
-          this.$q.loading.hide();
-          this.scanFail = true;
+          // this.$emit('updateStatus', this.$t('scanFail'));
+          // this.$q.loading.hide();
+          // this.scanFail = true;
         } else {
           await this.createRecycleTx([valid]);
           this.itemCounter += 1;
@@ -224,31 +225,31 @@ export default {
     },
 
     async finish() {
-      if (this.scanFail) {
-        this.scanFail = false;
-        this.scanBottle();
-      } else {
-        this.$q.loading.show();
-        if (this.itemCounter > 0) {
-          const stats = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
-          const balances = await this.$axios.get('https://cryptocycle.online/api/account/balances');
+      // if (this.scanFail) {
+      //   this.scanFail = false;
+      //   this.scanBottle();
+      // } else {
+      this.$q.loading.show();
+      if (this.itemCounter > 0) {
+        const stats = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
+        const balances = await this.$axios.get('https://cryptocycle.online/api/account/balances');
 
 
-          User.insertOrUpdate({
-            data: {
-              accountNumber: this.user.accountNumber,
-              itemsRecycled: stats.data.data[0].itemsRecycled,
-              pointsBalance: balances.data.data.rewardPoints,
-              cashBalance: balances.data.data.rewardValue,
-              itemsReturnedLast: this.itemCounter,
-              itemsReturnedTime: Date.now(),
-            },
-          });
-        }
-
-        this.$router.push({ path: '/home' });
-        this.$q.loading.hide();
+        User.insertOrUpdate({
+          data: {
+            accountNumber: this.user.accountNumber,
+            itemsRecycled: stats.data.data[0].itemsRecycled,
+            pointsBalance: balances.data.data.rewardPoints,
+            cashBalance: balances.data.data.rewardValue,
+            itemsReturnedLast: this.itemCounter,
+            itemsReturnedTime: Date.now(),
+          },
+        });
       }
+
+      this.$router.push({ path: '/home' });
+      this.$q.loading.hide();
+      // }
     },
   },
 };
