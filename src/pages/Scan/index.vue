@@ -106,15 +106,26 @@ export default {
     },
 
     async createRecycleTx(recyclables) {
-      const tx = await this.$axios.post('https://cryptocycle.online/api/recycling-transactions', {
-        consumerAccountNumber: this.accountNumber,
-        recyclePointCode: this.recyclePoint,
-        recyclables,
-      });
-      if (tx.status === 200 || tx.status === 201) {
-        return tx;
+      try {
+        const tx = await this.$axios.post('https://cryptocycle.online/api/recycling-transactions', {
+          consumerAccountNumber: this.accountNumber,
+          recyclePointCode: this.recyclePoint,
+          recyclables,
+        });
+        console.log(tx);
+        if (tx.status === 200 || tx.status === 201) {
+          return [null, tx];
+        }
+        return [false, null];
+      } catch (e) {
+        console.log(e.response);
+        if (e.response && e.response.data && e.response.data.errors) {
+          if (e.response.data.errors[0].code === 'RECYCLABLE_ALREADY_RECYCLED') {
+            return ['item already scanned', null];
+          }
+        }
+        return [true, null];
       }
-      return false;
     },
 
 
@@ -165,15 +176,13 @@ export default {
       try {
         const item = await this.$axios.get(`https://cryptocycle.online/api/recyclables/${code}`);
         if (item && item.status === 200) {
-          // if (this.user.itemsScanned.includes(item.data.data.code)) {
-          //   return ['item already scanned', null];
-          // }
-          const recyclable = {
-            uniqueCode: item.data.data.code,
-            productGtin: item.data.data.product.gtin,
-          };
-          // this.addItemScanned(recyclable.uniqueCode);
-          return [null, recyclable];
+          if (item.data) {
+            const recyclable = {
+              uniqueCode: item.data.data.code,
+              productGtin: item.data.data.product.gtin,
+            };
+            return [null, recyclable];
+          }
         }
         return ['invalid code', null];
       } catch (e) {
@@ -183,6 +192,7 @@ export default {
 
     async scanBottle() {
       const scanOk = async (result) => {
+        console.log(result);
         if (navigator.vibrate) {
           window.navigator.vibrate(100);
         }
@@ -199,14 +209,24 @@ export default {
             await new Promise(resolve => setTimeout(resolve, 1000));
             this.scanBottle();
           }
-          // this.$emit('updateStatus', this.$t('scanFail'));
-          // this.$q.loading.hide();
-          // this.scanFail = true;
         } else {
-          await this.createRecycleTx([valid]);
-          this.itemCounter += 1;
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          this.scanBottle();
+          const [error, tx] = await this.createRecycleTx([valid]);
+          if (tx) {
+            this.itemCounter += 1;
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            this.scanBottle();
+          } else {
+            console.log(error);
+            if (error === 'item already scanned') {
+              this.$emit('updateStatus', this.$t('scanFail'));
+              this.$q.loading.hide();
+              this.scanFail = true;
+            } else {
+              this.$emit('updateStatus', this.$t('invalidCode'), 'bg-red text-white');
+              await new Promise(resolve => setTimeout(resolve, 1000));
+              this.scanBottle();
+            }
+          }
         }
       };
 
@@ -225,31 +245,31 @@ export default {
     },
 
     async finish() {
-      // if (this.scanFail) {
-      //   this.scanFail = false;
-      //   this.scanBottle();
-      // } else {
-      this.$q.loading.show();
-      if (this.itemCounter > 0) {
-        const stats = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
-        const balances = await this.$axios.get('https://cryptocycle.online/api/account/balances');
+      if (this.scanFail) {
+        this.scanFail = false;
+        this.scanBottle();
+      } else {
+        this.$q.loading.show();
+        if (this.itemCounter > 0) {
+          const stats = await this.$axios.get('https://cryptocycle.online/api/account/statistics');
+          const balances = await this.$axios.get('https://cryptocycle.online/api/account/balances');
 
 
-        User.insertOrUpdate({
-          data: {
-            accountNumber: this.user.accountNumber,
-            itemsRecycled: stats.data.data[0].itemsRecycled,
-            pointsBalance: balances.data.data.rewardPoints,
-            cashBalance: balances.data.data.rewardValue,
-            itemsReturnedLast: this.itemCounter,
-            itemsReturnedTime: Date.now(),
-          },
-        });
+          User.insertOrUpdate({
+            data: {
+              accountNumber: this.user.accountNumber,
+              itemsRecycled: stats.data.data[0].itemsRecycled,
+              pointsBalance: balances.data.data.rewardPoints,
+              cashBalance: balances.data.data.rewardValue,
+              itemsReturnedLast: this.itemCounter,
+              itemsReturnedTime: Date.now(),
+            },
+          });
+        }
+
+        this.$router.push({ path: '/home' });
+        this.$q.loading.hide();
       }
-
-      this.$router.push({ path: '/home' });
-      this.$q.loading.hide();
-      // }
     },
   },
 };
