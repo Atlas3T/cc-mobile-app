@@ -6,37 +6,37 @@
     />
     <div
       class="target-wrapper flex flex-center"
-      :class="scanFail ? 'white-overlay' : ''"
+      :class="(recyclableFail || returnFail) ? 'white-overlay' : ''"
     >
       <div
-        v-if="!scanFail"
+        v-if="!recyclableFail && !returnFail"
         class="target"
       />
       <div
-        v-if="scanFail"
+        v-if="recyclableFail || returnFail"
         class="scan-fail flex-center"
       >
         <div class=" scan-fail-heading text-h4 text-center text-weight-bold">
-          {{ $t('scanFail') }}
+          {{ errorTitle }}
         </div>
         <div class="text-center q-mx-xl text-grey-6 text-weight-bold">
-          scan failed because the item has already been scanned
+          {{ errorMessage }}
         </div>
       </div>
     </div>
     <div class="controls-box">
       <q-btn
-        v-if="itemCounter < 1 || scanFail"
+        v-if="itemCounter < 1 || recyclableFail || returnFail"
         flat
         icon="close"
-        :color="scanFail ? 'accent' : 'grey-4'"
+        :color="(recyclableFail || returnFail) ? 'accent' : 'grey-4'"
         size="lg"
         @click="finish()"
       />
     </div>
     <div class="finish-box absolute-center">
       <q-btn
-        v-if="itemCounter > 0 && !scanFail"
+        v-if="itemCounter > 0 && !recyclableFail && !returnFail"
         no-caps
         :label="$t('finish')"
         color="secondary"
@@ -61,7 +61,10 @@ export default {
       recyclePoint: null,
       itemCounter: 0,
       newPoints: 0,
-      scanFail: false,
+      recyclableFail: false,
+      returnFail: false,
+      errorTitle: null,
+      errorMessage: null,
     };
   },
   computed: {
@@ -92,17 +95,23 @@ export default {
   },
 
   methods: {
+    displayError(code) {
+      if (code === 'RECYCLABLE_ALREADY_RECYCLED') {
+        this.errorTitle = 'scan fail';
+        this.errorMessage = 'item has already been scanned';
+        this.recyclableFail = true;
+      }
+      if (code === 'ITEM_NOT_RECOGNIZED') {
+        this.errorTitle = 'item not recognized';
+        this.errorMessage = 'Are you trying to scan a return point?';
+        this.recyclableFail = true;
+      }
 
-    addItemScanned(val) {
-      const items = this.user.itemsScanned.map(item => item);
-      items.push(val);
-      console.log(items);
-      User.insertOrUpdate({
-        data: {
-          accountNumber: this.user.accountNumber,
-          itemsScanned: items,
-        },
-      });
+      if (code === 'RETURN_NOT_RECOGNIZED') {
+        this.errorTitle = 'return point not recognized';
+        this.errorMessage = 'Are you trying to scan a recyclable?';
+        this.returnFail = true;
+      }
     },
 
     async createRecycleTx(recyclables) {
@@ -112,16 +121,14 @@ export default {
           recyclePointCode: this.recyclePoint,
           recyclables,
         });
-        console.log(tx);
         if (tx.status === 200 || tx.status === 201) {
           return [null, tx];
         }
         return [false, null];
       } catch (e) {
-        console.log(e.response);
         if (e.response && e.response.data && e.response.data.errors) {
           if (e.response.data.errors[0].code === 'RECYCLABLE_ALREADY_RECYCLED') {
-            return ['item already scanned', null];
+            return ['RECYCLABLE_ALREADY_RECYCLED', null];
           }
         }
         return [true, null];
@@ -148,10 +155,14 @@ export default {
       await this.codeReader
         .decodeFromInputVideoDevice(null, 'video')
         .then(async (result) => {
+          if (result.format !== 11) {
+            this.displayError('RETURN_NOT_RECOGNIZED');
+            return false;
+          }
           if (navigator.vibrate) {
-            console.log('can vibrate');
             window.navigator.vibrate(100);
           }
+
           this.$emit('updateStatus', this.$t('recyclePointScanned'), 'bg-secondary text-accent');
           this.$q.loading.show({
             delay: 400, // ms
@@ -167,6 +178,7 @@ export default {
             this.scanBin();
             return false;
           }, 2000);
+          return true;
         })
         .catch(err => console.error(err));
     },
@@ -192,7 +204,10 @@ export default {
 
     async scanBottle() {
       const scanOk = async (result) => {
-        console.log(result);
+        if (result.format !== 5) {
+          this.displayError('ITEM_NOT_RECOGNIZED');
+          return false;
+        }
         if (navigator.vibrate) {
           window.navigator.vibrate(100);
         }
@@ -203,7 +218,6 @@ export default {
         const [err, valid] = await this.checkBottle(result.text);
 
         if (err) {
-          console.log(err);
           if (err === 'invalid code') {
             this.$emit('updateStatus', this.$t('invalidCode'), 'bg-red text-white');
             await new Promise(resolve => setTimeout(resolve, 1000));
@@ -215,19 +229,17 @@ export default {
             this.itemCounter += 1;
             await new Promise(resolve => setTimeout(resolve, 1000));
             this.scanBottle();
+          } else if (error === 'RECYCLABLE_ALREADY_RECYCLED') {
+            this.$emit('updateStatus', this.$t('scanFail'));
+            this.$q.loading.hide();
+            this.displayError('RECYCLABLE_ALREADY_RECYCLED');
           } else {
-            console.log(error);
-            if (error === 'item already scanned') {
-              this.$emit('updateStatus', this.$t('scanFail'));
-              this.$q.loading.hide();
-              this.scanFail = true;
-            } else {
-              this.$emit('updateStatus', this.$t('invalidCode'), 'bg-red text-white');
-              await new Promise(resolve => setTimeout(resolve, 1000));
-              this.scanBottle();
-            }
+            this.$emit('updateStatus', this.$t('invalidCode'), 'bg-red text-white');
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            this.scanBottle();
           }
         }
+        return true;
       };
 
       if (this.itemCounter > 0) {
@@ -245,9 +257,12 @@ export default {
     },
 
     async finish() {
-      if (this.scanFail) {
-        this.scanFail = false;
+      if (this.recyclableFail) {
+        this.recyclableFail = false;
         this.scanBottle();
+      } else if (this.returnFail) {
+        this.returnFail = false;
+        this.scanBin();
       } else {
         this.$q.loading.show();
         if (this.itemCounter > 0) {

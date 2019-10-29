@@ -30,7 +30,7 @@ export default {
   finish: 'finish',
   scanReturnPoint: 'scan return point',
   recyclePointScanned: 'return point scanned',
-  invalidCode: 'invalid code',
+  invalidCode: 'something went wrong',
   itemScanned: 'item scanned',
   addItemToBin: 'add item to bin',
   scanYourItem: 'scan your item',
